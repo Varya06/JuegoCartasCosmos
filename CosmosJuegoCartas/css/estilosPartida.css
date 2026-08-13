@@ -1,0 +1,355 @@
+body {
+    background-color: rgb(26, 33, 106);
+    min-height: 100vh;
+    margin: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#titulo{
+    display:flex; 
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+    margin-top: 30px;
+    margin-left: 400px;
+    margin-right: 400px;
+    height: 80px;
+    width: 700px; 
+}
+
+
+#encabezado{
+    font-family: 'Tangerine', cursive;
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+#tituloErrantes{
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+#superior{
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    background-color:rgb(33, 4, 70);
+    height: 550px;
+    width: 1300px;
+    margin: 0 auto;
+}
+
+
+#inferior{
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    background-color:rgb(141, 141, 244);
+    height: 450px;
+    width: 1300px;
+    margin: 0 auto;
+}
+
+
+#sistema-solar{
+    background-color:rgb(155, 155, 231);
+    width:900px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto;
+}
+
+#imagen-sistemas{
+    background-color:rgb(0, 238, 218);
+    width:800px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto;
+}
+
+#errantes{
+    background-color:rgb(242, 168, 58);
+    width:300px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto;
+}
+
+#cartasJugador{
+    position: fixed;
+
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+
+    background-color:rgb(100, 23, 214);
+    width:980px;
+    height: 220px;
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto;
+
+    transition: transform 0.3s ease;
+}
+
+#cartasJugador.oculto {
+    transform: translateY(180px);
+}
+
+#filaCartas{
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content:center;
+}
+
+
+
+#botonCartas {
+    position: absolute;
+    top: -25px;          
+    left: 90%;
+    transform: translateX(-50%);
+
+    width: 70px;
+    height: 25px;
+
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+
+    background-color:rgb(124, 213, 235);
+}
+
+.fila{
+    background-color:rgb(247, 169, 230);
+    width:700px;
+    height: 200px;
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: 5px;
+}
+
+.fila-errantes{
+    background-color:rgb(247, 169, 230);
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: center;
+
+    margin: 5px;
+}
+
+#fila-superior{
+    background-color:rgb(72, 0, 57);
+    margin:10px;
+}
+
+#fila-inferior{
+    background-color:rgb(72, 0, 57);
+    margin:10px;
+}
+
+#fila-errantes-1{
+    background-color:rgb(72, 0, 57);
+    margin:10px;
+}
+
+#fila-errantes-2{
+    background-color:rgb(72, 0, 57);
+    margin:10px;
+}
+
+.errante{
+    background-color:rgb(66, 227, 255);
+    height:180px;
+    width:120px; 
+    margin:10px;
+}
+
+.carta{
+    background-color:rgb(66, 227, 255);
+    height:180px;
+    width:120px; 
+    margin:10px;
+}
+
+#cartaCombate{
+    background-color:rgb(66, 227, 255);
+    height:380px;
+    width:220px; 
+    margin: 0 auto;
+}
+
+#lateral{
+    background-color:rgb(72, 0, 57);
+    height:250px;
+    width:150px; 
+    display:flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+#baraja{
+    background-color:rgb(31, 98, 254);
+    width:300px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto;
+}
+
+.imgCarta{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+a{
+    text-decoration:none;
+}
+
+#botonVolver{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;    
+    background-color: blue;
+
+    position: fixed;
+    top: 10px;
+    left: 10px;
+
+    margin: 3px;
+    margin-top:10px;
+    margin-bottom:2px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    width:200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Tangerine', cursive;
+    font-size: 40px;
+    color:rgb(239, 202, 252);
+}
+
+
+#botonVolver:hover{
+    filter: brightness(1.3) 
+    drop-shadow(0 0 10px rgba(165, 85, 255, 0.8)) 
+    drop-shadow(0 0 20px rgba(165, 85, 255, 0.8)) 
+    drop-shadow(0 0 40px rgba(165, 85, 255, 0.8)) ;
+}
+
+#botones{
+    position: fixed;
+    top: 15px;
+    right: 15px;
+
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;              /* Separación entre botones */
+}
+
+#botonVerSistema, #botonBatallaEstrellas{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;    
+    background-color: blue;
+
+    margin: 3px;
+    margin-top:10px;
+    margin-bottom:2px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    width:200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Tangerine', cursive;
+    font-size: 40px;
+    color:rgb(239, 202, 252);
+}
+
+#botonVerSistema:hover{
+    filter: brightness(1.3) 
+    drop-shadow(0 0 10px rgba(165, 85, 255, 0.8)) 
+    drop-shadow(0 0 20px rgba(165, 85, 255, 0.8)) 
+    drop-shadow(0 0 40px rgba(165, 85, 255, 0.8)) ;
+}
+
+
+#botonBatallaEstrellas:hover{
+    filter: brightness(1.3) 
+    drop-shadow(0 0 10px rgba(165, 85, 255, 0.8)) 
+    drop-shadow(0 0 20px rgba(165, 85, 255, 0.8)) 
+    drop-shadow(0 0 40px rgba(165, 85, 255, 0.8)) ;
+}
+
+
+#botonSiguienteTurno{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;    
+    background-color: blue;
+
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+
+    margin: 3px;
+    margin-top:10px;
+    margin-bottom:2px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    width:200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Tangerine', cursive;
+    font-size: 40px;
+    color:rgb(239, 202, 252);
+}
+
+
+#botonSiguienteTurno:hover{
+    filter: brightness(1.3) 
+    drop-shadow(0 0 10px rgba(165, 85, 255, 0.8)) 
+    drop-shadow(0 0 20px rgba(165, 85, 255, 0.8)) 
+    drop-shadow(0 0 40px rgba(165, 85, 255, 0.8)) ;
+}

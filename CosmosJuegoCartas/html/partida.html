@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>COSMOS:Juego de cartas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Honk:MORF@15&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/estilosPartida.css">
+</head>
+
+<body>
+    <a href="menuPrincipal.html">
+        <button id="botonVolver">Volver</button>
+    </a>
+
+    <div id="botones">
+        <a>
+            <button id="botonVerSistema">Sistemas solares</button>
+        </a>
+
+        <a>
+            <button id="botonBatallaEstrellas">Batalla de estrellas</button>
+        </a>
+    </div>
+
+    <a>
+        <button id="botonSiguienteTurno">Siguiente turno</button>
+    </a>
+    
+
+    <div id="titulo">
+        <h1 id="encabezado">
+            PARTIDA
+        </h1>
+    </div>
+
+    <div id="superior">
+        <div id="sistema-solar">
+            <div id="imagen-sistemas">
+                <p>SISTEMA SOLAR</p>
+            </div>
+        </div>
+
+        <div id="errantes">
+            <div id="imagen-errantes">
+                <p id="tituloErrantes">ERRANTES</p>
+                <div class="fila-errantes" id="fila-errantes-1">
+                    <div class="errante" id="errante1"></div>
+                    <div class="errante" id="errante2"></div>
+                </div>
+                
+                <div class="fila-errantes" id="fila-errantes-2">
+                    <div class="errante" id="errante3"></div>
+                    <div class="errante" id="errante4"></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="inferior">
+
+        <div id="cartaCombate"></div>
+
+        <div id = "baraja">
+            <p>Baraja</p>
+        </div>
+
+    </div>
+
+    <div id="cartasJugador">
+        <button id="botonCartas">▼</button>
+
+
+        <div id = "filaCartas">
+            <div class="carta" id="carta1" >
+                <img  draggable="true" class="imgCarta" id="imgCarta1">
+            </div>
+
+            <div class="carta" id="carta2" >
+                <img  draggable="true" class="imgCarta" id="imgCarta2">
+            </div>
+
+            <div class="carta" id="carta3" >
+                <img  draggable="true"  class="imgCarta" id="imgCarta3">
+            </div>
+
+            <div class="carta" id="carta4" >
+                <img  draggable="true"  class="imgCarta" id="imgCarta4">
+            </div>
+
+            <div class="carta" id="carta5" >
+                <img  draggable="true"  class="imgCarta" id="imgCarta5">
+            </div>
+
+            <div class="carta" id="carta6" >
+                <img  draggable="true"  class="imgCarta" id="imgCarta6">
+            </div>
+
+            <div class="carta" id="carta7" >
+                <img  draggable="true" class="imgCarta" id="imgCarta7">
+            </div>
+        </div> 
+
+    </div>
+
+
+    <script src="../js/moverCartas.js"></script>
+    <script src="../js/elementosHtml.js"></script>
+    <script  type="module" src="../js/interfazCartas.js"></script>
+    <script  type="module" src="../js/accionesJugador.js"></script>
+</body>
