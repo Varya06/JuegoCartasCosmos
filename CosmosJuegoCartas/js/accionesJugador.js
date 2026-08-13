@@ -1,4 +1,3 @@
-
 //INICIALIZACIÓN DE VARIABLES
 const cartasJugador = []; //las cartas que tiene el jugador en su mazo
 const cartasJugador2 = []; //las cartas que tiene el jugador en su mazo
@@ -14,7 +13,26 @@ var turnoJugador2 = false; //variable que indica si es el turno del jugador 1 o 
 var primeraVezJugador1 = true; //variable que indica si es la primera vez que el jugador 1 juega
 var primeraVezJugador2 = true; //variable que indica si es la primera vez que el jugador 2 juega
 
-//EN VEZ DE VARIABLES, CREAR OBJETOS PARA CADA JUGADOR CON SUS PROPIAS CARTAS, SISTEMA SOLAR Y ERRANTES
+//EN VEZ DE VARIABLES SUELTAS, CREAR ARRAYS PARA CADA JUGADOR CON SUS PROPIAS CARTAS, SISTEMA SOLAR Y ERRANTES
+const jugadores = [
+    {
+        cartas: [],
+        sistemaSolar: [],
+        errantes: [],
+        primeraVez: true,
+        turno: true
+    },
+    {
+        cartas: [],
+        sistemaSolar: [],
+        errantes: [],
+        primeraVez: true,
+        turno: false
+    }
+];
+mazoInicialEstrellas(jugadores[0]);
+jugadores[0].primeraVez = false;
+interfazCartas(jugadores[0]);
 
 
 //IMPORTAR LAS CLASES DE LAS CARTAS 
@@ -24,58 +42,58 @@ import {cartasJugadorEstrellas, cartasJugadorEstrellas2, mazoInicialEstrellas, i
 //console.log(cartas);
 
 //Las cartas aleatorias con las que empieza al principio
-function mazoInicial(cartasJugador){
+function mazoInicial(jugador){
     for(let i = 0; i<7; i++){
         let num = Math.floor(Math.random() * 18);
-        cartasJugador[i] = cartas[num];
+        jugador.cartas.push(cartas[num]);
     }
 }
 
-function cogerCarta(cartasJugador){
+function cogerCarta(jugador){
     let num = Math.floor(Math.random() * 18);
     let nuevaCarta = cartas[num];
-    cartasJugador.push(nuevaCarta);
+    jugador.cartas.push(nuevaCarta);
 }
 
-function intercambiarCarta(cartasJugador, posicion){
-    //delete cartasJugador[posicion];
+function intercambiarCarta(jugador, posicion){
+    //delete jugador.cartas[posicion];
     let num = Math.floor(Math.random() * 18);
     let nuevaCarta = cartas[num];
-    cartasJugador.splice(posicion,1,nuevaCarta);
-    //cartasJugador[posicion] = nuevaCarta;
+    jugador.cartas.splice(posicion,1,nuevaCarta);
+    //jugador.cartas[posicion] = nuevaCarta;
 }
 
 //Funcion que coloca una carta en el sistema solar 
-function colocarCarta(cartasJugador, cartasSistemaSolar, posicion){
-    cartasSistemaSolar.push(cartasJugador[posicion]);
-    cartasJugador.splice(posicion,1);
+function colocarCarta(jugador, cartasSistemaSolar, posicion){
+    cartasSistemaSolar.push(jugador.cartas[posicion]);
+    jugador.cartas.splice(posicion,1);
 }
 
 //Funcion que establece una carta como cuerpo celeste errante 
 //para atacar el sistema solar del otro jugador 
-function designarErrante(cartasJugador, cartasErrantes, posicion){
-    cartasErrantes.push(cartasJugador[posicion]);
-    cartasJugador.splice(posicion,1);
+function designarErrante(jugador, cartasErrantes, posicion){
+    cartasErrantes.push(jugador.cartas[posicion]);
+    jugador.cartas.splice(posicion,1);
 }
 
 function siguienteTurno(){
     //pasar al turno del siguiente jugador
-    turnoJugador1 = !turnoJugador1;
-    turnoJugador2 = !turnoJugador2;
-    if (turnoJugador1){
+    jugadores[0].turno = !jugadores[0].turno;
+    jugadores[1].turno = !jugadores[1].turno;
+    if (jugadores[0].turno){
         console.log("Turno del jugador 1");
-        if (primeraVezJugador1){
-            mazoInicialEstrellas(cartasJugadorEstrellas);
-            primeraVezJugador1 = false;
+        if (jugadores[0].primeraVez){
+            mazoInicialEstrellas(jugadores[0]);
+            jugadores[0].primeraVez = false;
         }
-        interfazCartas(cartasJugadorEstrellas);
+        interfazCartas(jugadores[0]);
     } else {
         console.log("Turno del jugador 2");
-        if (primeraVezJugador2){
-            mazoInicialEstrellas(cartasJugadorEstrellas2);
-            primeraVezJugador2 = false;
+        if (jugadores[1].primeraVez){
+            mazoInicialEstrellas(jugadores[1]);
+            jugadores[1].primeraVez = false;
         }
-        interfazCartas(cartasJugadorEstrellas2);
+        interfazCartas(jugadores[1]);
     }
 }
 
@@ -85,34 +103,34 @@ export {siguienteTurno};
 //PRUEBA DE FUNCIONAMIENTO
 
 console.log("Cartas del jugador iniciales:")
-mazoInicial(cartasJugador);
-for (const carta of cartasJugador){
+mazoInicial(jugadores[0]);
+for (const carta of jugadores[0].cartas){
     console.log(carta.tipo);
 }
 
 
-cogerCarta(cartasJugador);
+cogerCarta(jugadores[0]);
 console.log("Cartas del jugador actuales:")
-for (const carta of cartasJugador){
+for (const carta of jugadores[0].cartas){
     console.log(carta.tipo);
 }
 
-cogerCarta(cartasJugador);
+cogerCarta(jugadores[1]);
 console.log("Cartas del jugador actuales:")
-for (const carta of cartasJugador){
+for (const carta of jugadores[1].cartas){
     console.log(carta.tipo);
 }
 
-intercambiarCarta(cartasJugador, 1);
+intercambiarCarta(jugadores[0], 1);
 console.log("Cartas del jugador actuales:")
-for (const carta of cartasJugador){
+for (const carta of jugadores[0].cartas){
     console.log(carta.tipo);
 }
 
 //Prueba de colocar una carta en el sistema solar 
-colocarCarta(cartasJugador, cartasSistemaSolar, 1);
+colocarCarta(jugadores[0], cartasSistemaSolar, 1);
 console.log("Cartas del jugador actuales:")
-for (const carta of cartasJugador){
+for (const carta of jugadores[0].cartas){
     console.log(carta.tipo);
 }
 
@@ -122,20 +140,20 @@ for (const carta of cartasSistemaSolar){
 }
 
 //Prueba de coger una carta y después designarla como cuerpo celeste errante 
-cogerCarta(cartasJugador);
+cogerCarta(jugadores[0]);
 console.log("Cartas del jugador actuales:")
-for (const carta of cartasJugador){
+for (const carta of jugadores[0].cartas){
     console.log(carta.tipo);
 }
 
-designarErrante(cartasJugador, cartasErrantes, 0);
+designarErrante(jugadores[0], cartasErrantes, 0);
 console.log("Cuerpos celestes errantes:")
 for (const carta of cartasErrantes){
     console.log(carta.tipo);
 }
 
 console.log("Cartas del jugador actuales:")
-for (const carta of cartasJugador){
+for (const carta of jugadores[0].cartas){
     console.log(carta.tipo);
 }
 
