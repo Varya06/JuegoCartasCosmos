@@ -35,4 +35,26 @@ function interfazCartas(jugador){
     }
 }
 
-export { cartasJugadorEstrellas, cartasJugadorEstrellas2, cartas, mazoInicialEstrellas, interfazCartas };
+function actualizarErrantes(jugador){ 
+    const errantes = document.querySelectorAll(".errante > .imgCarta"); 
+    jugador.errantes = []; // Limpiar el array de errantes antes de actualizarlo 
+    for (let i = 0; i < errantes.length; i++) { 
+        let carta = errantes[i]; jugador.errantes.push(carta.src); 
+    } 
+}
+
+function mostrarErrantes(jugador) { 
+    const errantes = document.querySelectorAll(".errante > .imgCarta"); 
+    const errantesJugador = jugador.errantes; // Obtener el array de errantes del jugador 
+    for (let i = 0; i < errantes.length; i++) { 
+        let carta = errantes[i]; 
+        if (i < errantesJugador.length){ 
+            carta.src = errantesJugador[i]; // Mostrar la carta correspondiente del array de errantes 
+        } else { 
+            carta.src = ""; // Si no hay carta, dejar el src vacío
+        } 
+    } 
+}
+
+export { cartasJugadorEstrellas, cartasJugadorEstrellas2, cartas, mazoInicialEstrellas, interfazCartas,
+    actualizarErrantes, mostrarErrantes};

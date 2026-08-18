@@ -37,7 +37,8 @@ interfazCartas(jugadores[0]);
 
 //IMPORTAR LAS CLASES DE LAS CARTAS 
 import { cartas } from "./cartas.js";
-import {cartasJugadorEstrellas, cartasJugadorEstrellas2, mazoInicialEstrellas, interfazCartas } from "./interfazCartas.js";
+import {cartasJugadorEstrellas, cartasJugadorEstrellas2, mazoInicialEstrellas, interfazCartas,
+    actualizarErrantes, mostrarErrantes} from "./interfazCartas.js";
 
 //console.log(cartas);
 
@@ -77,6 +78,13 @@ function designarErrante(jugador, cartasErrantes, posicion){
 }
 
 function siguienteTurno(){
+    //Antes de pasar el turno, se actualizan las errantes
+    if (jugadores[0].turno) {
+        actualizarErrantes(jugadores[0]);
+    } else {
+        actualizarErrantes(jugadores[1]);
+    }
+
     //pasar al turno del siguiente jugador
     jugadores[0].turno = !jugadores[0].turno;
     jugadores[1].turno = !jugadores[1].turno;
@@ -87,6 +95,7 @@ function siguienteTurno(){
             jugadores[0].primeraVez = false;
         }
         interfazCartas(jugadores[0]);
+        mostrarErrantes(jugadores[0]);
     } else {
         console.log("Turno del jugador 2");
         if (jugadores[1].primeraVez){
@@ -94,6 +103,7 @@ function siguienteTurno(){
             jugadores[1].primeraVez = false;
         }
         interfazCartas(jugadores[1]);
+        mostrarErrantes(jugadores[1]);
     }
 }
 
