@@ -37,8 +37,7 @@ interfazCartas(jugadores[0]);
 
 //IMPORTAR LAS CLASES DE LAS CARTAS 
 import { cartas } from "./cartas.js";
-import {cartasJugadorEstrellas, cartasJugadorEstrellas2, mazoInicialEstrellas, interfazCartas,
-    actualizarErrantes, mostrarErrantes} from "./interfazCartas.js";
+import {cartasJugadorEstrellas, cartasJugadorEstrellas2, mazoInicialEstrellas, interfazCartas, mostrarErrantes} from "./interfazCartas.js";
 
 //console.log(cartas);
 
@@ -72,19 +71,26 @@ function colocarCarta(jugador, cartasSistemaSolar, posicion){
 
 //Funcion que establece una carta como cuerpo celeste errante 
 //para atacar el sistema solar del otro jugador 
-function designarErrante(jugador, cartasErrantes, posicion){
-    cartasErrantes.push(jugador.cartas[posicion]);
-    jugador.cartas.splice(posicion,1);
+function designarErrante(jugador, posicion) {
+
+    const carta = jugador.cartas[posicion];
+
+    if (!carta) {
+        return;
+    }
+
+    // Quitar de la mano
+    jugador.cartas.splice(posicion, 1);
+
+    // Guardar el objeto carta
+    jugador.errantes.push(carta);
+
+    // Actualizar pantalla
+    interfazCartas(jugador);
+    mostrarErrantes(jugador);
 }
 
 function siguienteTurno(){
-    //Antes de pasar el turno, se actualizan las errantes
-    if (jugadores[0].turno) {
-        actualizarErrantes(jugadores[0]);
-    } else {
-        actualizarErrantes(jugadores[1]);
-    }
-
     //pasar al turno del siguiente jugador
     jugadores[0].turno = !jugadores[0].turno;
     jugadores[1].turno = !jugadores[1].turno;
@@ -108,64 +114,9 @@ function siguienteTurno(){
 }
 
 //EXPORTAR LA FUNCION DE PASAR TURNO PARA INCLUIRLO EN ELEMENTOSHTML.JS
-export {siguienteTurno};
-
-//PRUEBA DE FUNCIONAMIENTO
-
-console.log("Cartas del jugador iniciales:")
-mazoInicial(jugadores[0]);
-for (const carta of jugadores[0].cartas){
-    console.log(carta.tipo);
-}
+export {siguienteTurno, designarErrante,jugadores};
 
 
-cogerCarta(jugadores[0]);
-console.log("Cartas del jugador actuales:")
-for (const carta of jugadores[0].cartas){
-    console.log(carta.tipo);
-}
-
-cogerCarta(jugadores[1]);
-console.log("Cartas del jugador actuales:")
-for (const carta of jugadores[1].cartas){
-    console.log(carta.tipo);
-}
-
-intercambiarCarta(jugadores[0], 1);
-console.log("Cartas del jugador actuales:")
-for (const carta of jugadores[0].cartas){
-    console.log(carta.tipo);
-}
-
-//Prueba de colocar una carta en el sistema solar 
-colocarCarta(jugadores[0], cartasSistemaSolar, 1);
-console.log("Cartas del jugador actuales:")
-for (const carta of jugadores[0].cartas){
-    console.log(carta.tipo);
-}
-
-console.log("Cartas del sistema solar:")
-for (const carta of cartasSistemaSolar){
-    console.log(carta.tipo);
-}
-
-//Prueba de coger una carta y después designarla como cuerpo celeste errante 
-cogerCarta(jugadores[0]);
-console.log("Cartas del jugador actuales:")
-for (const carta of jugadores[0].cartas){
-    console.log(carta.tipo);
-}
-
-designarErrante(jugadores[0], cartasErrantes, 0);
-console.log("Cuerpos celestes errantes:")
-for (const carta of cartasErrantes){
-    console.log(carta.tipo);
-}
-
-console.log("Cartas del jugador actuales:")
-for (const carta of jugadores[0].cartas){
-    console.log(carta.tipo);
-}
 
 
 //Llamar a la función de siguiente turno con el botón de la interfaz

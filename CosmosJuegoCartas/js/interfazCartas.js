@@ -17,60 +17,63 @@ function mazoInicialEstrellas(jugador){
     }
 }
 
-//FALTA ARREGLAR ESTO
-//TAL VEZ HACIENDO QUE SE RESETEE CADA VEZ QUE HAYA UN TURNO NUEVO, IGUAL QUE EN ERRANTES
+
+//Función que muestras las cartas del jugador en la interfaz, actualizándolas en cada turno 
 function interfazCartas(jugador){
-    for (let i = 0; i< cartas.length; i++){
-        let carta = cartas[i];
-        let cartaTipo = jugador.cartas[i].tipoEstrella;
+    const contenedores = document.querySelectorAll(".carta");
 
-        if (cartaTipo == "estrellaAzul") {
-            carta.src = "../imagenes/carta_estrella_azul.png";
+    // Borrar lo que había antes
+    contenedores.forEach(contenedor => {
+        contenedor.innerHTML = "";
+    });
 
-        } else if (cartaTipo == "estrellaRoja") {
-            carta.src = "../imagenes/carta_estrella_roja.png";
+    // Crear las cartas actuales del jugador
+    for (let i = 0; i < jugador.cartas.length; i++) {
 
-        } else if (cartaTipo == "estrellaAmarilla") {
-            carta.src = "../imagenes/carta_estrella_amarilla.png";
+        if (i >= contenedores.length) {
+            break;
         }
 
-    }
-}
+        const carta = document.createElement("img");
 
-function actualizarErrantes(jugador){ 
-    const errantes = document.querySelectorAll(".errante > .imgCarta"); 
-    jugador.errantes = []; // Limpiar el array de errantes antes de actualizarlo 
-    for (let i = 0; i < errantes.length; i++) { 
-        let carta = errantes[i]; 
-        jugador.errantes.push(carta.src); 
+        carta.classList.add("imgCarta");
+        carta.draggable = true;
+
+        // guardar la posición que ocupa en jugador.cartas
+        carta.dataset.posicion = i;
+
+        carta.src = "../imagenes/" + jugador.cartas[i].tipoEstrella + ".png";
+
+        contenedores[i].appendChild(carta);
     } 
 }
 
-function mostrarErrantes(jugador) { 
-    const contenedores = document.querySelectorAll(".errante"); 
-    const errantesJugador = jugador.errantes; // Obtener el array de errantes del jugador 
-    for (let i = 0; i < contenedores.length; i++) { 
-        let contenedor = contenedores[i]; 
-        contenedor.innerHTML = ""; // Limpiar el contenido del contenedor antes de agregar la carta 
-    }
 
-    for (let i = 0; i < errantesJugador.length; i++) { 
-        if (i < contenedores.length) {
 
-            // Crear una nueva imagen
-            const carta = document.createElement("img");
+function mostrarErrantes(jugador) {
 
-            // Darle la clase que tienen tus cartas
-            carta.classList.add("imgCarta");
+    const contenedores = document.querySelectorAll(".errante");
 
-            // Poner la imagen correspondiente
-            carta.src = errantesJugador[i];
+    // Limpiar los huecos
+    contenedores.forEach(contenedor => {
+        contenedor.innerHTML = "";
+    });
 
-            // Meterla dentro del contenedor
-            contenedores[i].appendChild(carta);
+    // Crear las cartas errantes
+    for (let i = 0; i < jugador.errantes.length; i++) {
+
+        if (i >= contenedores.length) {
+            break;
         }
-    } 
+
+        const carta = document.createElement("img");
+
+        carta.classList.add("cartaErrante");
+
+        carta.src = "../imagenes/" + jugador.errantes[i].tipoEstrella + ".png";
+
+        contenedores[i].appendChild(carta);
+    }
 }
 
-export { cartasJugadorEstrellas, cartasJugadorEstrellas2, cartas, mazoInicialEstrellas, interfazCartas,
-    actualizarErrantes, mostrarErrantes};
+export { cartasJugadorEstrellas, cartasJugadorEstrellas2, cartas, mazoInicialEstrellas, interfazCartas, mostrarErrantes};

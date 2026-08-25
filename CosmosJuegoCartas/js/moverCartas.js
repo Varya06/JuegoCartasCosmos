@@ -1,10 +1,10 @@
 //Elementos que se irán modificando
 //Para que se puedan arrastrar todas las cartas
-const cartas = document.querySelectorAll(".imgCarta");
+import { jugadores, designarErrante } from "./accionesJugador.js";
 
-cartas.forEach(carta => {
-    carta.addEventListener("dragstart", arrastrar);
-});
+const filaCartas = document.getElementById("filaCartas");
+
+filaCartas.addEventListener("dragstart", arrastrar);
 
 //Para que se puedan designar como errantes 
 const errantes = document.querySelectorAll(".errante");
@@ -32,18 +32,29 @@ function permitirSoltar(e){
 }
 
 //FUNCIÓN PARA PODER MOVER LA CARTA 
-function arrastrar(e){
-    e.dataTransfer.setData("info",e.target.id);
+function arrastrar(e) {
+
+    const posicion = e.target.dataset.posicion;
+
+    e.dataTransfer.setData("posicion", posicion);
 }
 
 //FUNCION PARA PERMITIR SOLTAR Y QUE LA CARTA SE QUEDE EN EL RECTANGULO
-function soltar(e){
+function soltar(e) {
+
     e.preventDefault();
 
-    const id = e.dataTransfer.getData("info");
-    const carta = document.getElementById(id);
+    const posicion = parseInt(
+        e.dataTransfer.getData("posicion")
+    );
 
-    e.currentTarget.appendChild(carta);
+    const jugadorActual = jugadores.find(
+        jugador => jugador.turno
+    );
 
+    if (e.currentTarget.classList.contains("errante")) {
+
+        designarErrante(jugadorActual, posicion);
+    }
 }
 
