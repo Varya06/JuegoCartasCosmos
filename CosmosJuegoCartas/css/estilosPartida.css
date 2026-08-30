@@ -243,6 +243,12 @@ body {
     object-fit: cover;
 }
 
+.cartaCentral{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 a{
     text-decoration:none;
 }

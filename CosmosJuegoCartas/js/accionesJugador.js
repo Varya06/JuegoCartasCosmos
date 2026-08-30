@@ -19,6 +19,7 @@ const jugadores = [
         cartas: [],
         sistemaSolar: [],
         errantes: [],
+        cartaCentral: null,
         primeraVez: true,
         turno: true
     },
@@ -27,6 +28,7 @@ const jugadores = [
         sistemaSolar: [],
         errantes: [],
         primeraVez: true,
+        cartaCentral: null,
         turno: false
     }
 ];
@@ -37,7 +39,8 @@ interfazCartas(jugadores[0]);
 
 //IMPORTAR LAS CLASES DE LAS CARTAS 
 import { cartas, cartasEstrella } from "./cartas.js";
-import {cartasJugadorEstrellas, cartasJugadorEstrellas2, interfazCartas, mostrarErrantes, mostrarSistemaSolar} from "./interfazCartas.js";
+import {cartasJugadorEstrellas, cartasJugadorEstrellas2, interfazCartas, mostrarErrantes, 
+    mostrarSistemaSolar, mostrarCartaCentral} from "./interfazCartas.js";
 
 //console.log(cartas);
 
@@ -71,7 +74,7 @@ function intercambiarCarta(jugador, posicion){
     //jugador.cartas[posicion] = nuevaCarta;
 }
 
-//PENDIENTE DE COMPROBAR SI FUNCIONA
+
 // Funcion que establece una carta como parte del sistema Solar
 function colocarSistemaSolar(jugador, posicion){
     const carta = jugador.cartas[posicion];
@@ -112,6 +115,27 @@ function designarErrante(jugador, posicion) {
     mostrarErrantes(jugador);
 }
 
+//Funcion para colocar una carta del mazo en el centro, para que los otros jugadores tengan que poner
+//cartas menores a esa
+function colocarCartaCentral(jugador, posicion){
+    const carta = jugador.cartas[posicion];
+
+    if (!carta) {
+        return;
+    }
+
+    // Quitar de la mano
+    jugador.cartas.splice(posicion, 1);
+
+    // Guardar el objeto carta
+    jugador.cartaCentral = carta;
+
+    // Actualizar pantalla
+    interfazCartas(jugador);
+    mostrarCartaCentral(jugador);
+}
+
+
 function siguienteTurno(){
     //pasar al turno del siguiente jugador
     jugadores[0].turno = !jugadores[0].turno;
@@ -125,6 +149,7 @@ function siguienteTurno(){
         interfazCartas(jugadores[0]);
         mostrarErrantes(jugadores[0]);
         mostrarSistemaSolar(jugadores[0]);
+        mostrarCartaCentral(jugadores[0]);
     } else {
         console.log("Turno del jugador 2");
         if (jugadores[1].primeraVez){
@@ -134,11 +159,12 @@ function siguienteTurno(){
         interfazCartas(jugadores[1]);
         mostrarErrantes(jugadores[1]);
         mostrarSistemaSolar(jugadores[1]);
+        mostrarCartaCentral(jugadores[1]);
     }
 }
 
 //EXPORTAR LA FUNCION DE PASAR TURNO PARA INCLUIRLO EN ELEMENTOSHTML.JS
-export {mazoInicialEstrellas, siguienteTurno, designarErrante, colocarSistemaSolar, jugadores};
+export {mazoInicialEstrellas, siguienteTurno, designarErrante, colocarSistemaSolar, colocarCartaCentral, jugadores};
 
 
 

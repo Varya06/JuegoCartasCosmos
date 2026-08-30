@@ -87,5 +87,26 @@ function mostrarSistemaSolar(jugador) {
     }
 }
 
+function mostrarCartaCentral(jugador) {
 
-export { cartasJugadorEstrellas, cartasJugadorEstrellas2, cartas, mazoInicialEstrellas, interfazCartas, mostrarErrantes, mostrarSistemaSolar};
+    const contenedor = document.getElementById("cartaCombate");
+
+    // Limpiar 
+    contenedor.innerHTML = "";
+
+    // Crear la carta central
+    if (jugador.cartaCentral) {
+
+        const carta = document.createElement("img");
+
+        carta.classList.add("cartaCentral");
+
+        carta.src = "../imagenes/" + jugador.cartaCentral.tipoEstrella + ".png";
+
+        contenedor.appendChild(carta);
+    }
+}
+
+
+export { cartasJugadorEstrellas, cartasJugadorEstrellas2, cartas, mazoInicialEstrellas, 
+    interfazCartas, mostrarErrantes, mostrarSistemaSolar, mostrarCartaCentral};

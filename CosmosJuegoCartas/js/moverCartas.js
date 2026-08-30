@@ -1,6 +1,6 @@
 //Elementos que se irán modificando
 //Para que se puedan arrastrar todas las cartas
-import { jugadores, colocarSistemaSolar, designarErrante } from "./accionesJugador.js";
+import { jugadores, colocarSistemaSolar, designarErrante, colocarCartaCentral } from "./accionesJugador.js";
 
 const filaCartas = document.getElementById("filaCartas");
 
@@ -58,6 +58,8 @@ function soltar(e) {
         designarErrante(jugadorActual, posicion);
     } else if (e.currentTarget.id === "imagen-sistemas") {
         colocarSistemaSolar(jugadorActual, posicion);
+    } else if (e.currentTarget.id === "cartaCombate") {
+        colocarCartaCentral(jugadorActual, posicion);
     }
 }
 
