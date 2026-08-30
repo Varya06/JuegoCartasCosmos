@@ -67,5 +67,25 @@ function mostrarErrantes(jugador) {
     }
 }
 
+function mostrarSistemaSolar(jugador) {
 
-export { cartasJugadorEstrellas, cartasJugadorEstrellas2, cartas, mazoInicialEstrellas, interfazCartas, mostrarErrantes};
+    const contenedor = document.getElementById("imagen-sistemas");
+
+    // Limpiar 
+    contenedor.innerHTML = "<p>SISTEMA SOLAR</p>";
+
+    // Crear las cartas del sistema solar
+    for (let i = 0; i < jugador.sistemaSolar.length; i++) {
+
+        const carta = document.createElement("img");
+
+        carta.classList.add("cartaSistemaSolar");
+
+        carta.src = "../imagenes/" + jugador.sistemaSolar[i].tipoEstrella + ".png";
+
+        contenedor.appendChild(carta);
+    }
+}
+
+
+export { cartasJugadorEstrellas, cartasJugadorEstrellas2, cartas, mazoInicialEstrellas, interfazCartas, mostrarErrantes, mostrarSistemaSolar};

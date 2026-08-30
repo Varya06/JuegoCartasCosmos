@@ -1,18 +1,19 @@
 //Elementos que se irán modificando
 //Para que se puedan arrastrar todas las cartas
-import { jugadores, designarErrante } from "./accionesJugador.js";
+import { jugadores, colocarSistemaSolar, designarErrante } from "./accionesJugador.js";
 
 const filaCartas = document.getElementById("filaCartas");
 
 filaCartas.addEventListener("dragstart", arrastrar);
 
-//Para que se puedan designar como errantes 
+//Para que se puedan soltar las cartas en los rectángulos de los errantes y del sistema solar
 const errantes = document.querySelectorAll(".errante");
 
 errantes.forEach(errante => {
     errante.addEventListener("dragover", permitirSoltar);
     errante.addEventListener("drop", soltar);
 });
+
 
 const sistemaSolar = document.getElementById("imagen-sistemas");
 
@@ -55,6 +56,8 @@ function soltar(e) {
     if (e.currentTarget.classList.contains("errante")) {
 
         designarErrante(jugadorActual, posicion);
+    } else if (e.currentTarget.id === "imagen-sistemas") {
+        colocarSistemaSolar(jugadorActual, posicion);
     }
 }
 

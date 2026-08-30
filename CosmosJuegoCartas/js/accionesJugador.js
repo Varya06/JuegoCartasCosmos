@@ -37,7 +37,7 @@ interfazCartas(jugadores[0]);
 
 //IMPORTAR LAS CLASES DE LAS CARTAS 
 import { cartas, cartasEstrella } from "./cartas.js";
-import {cartasJugadorEstrellas, cartasJugadorEstrellas2, interfazCartas, mostrarErrantes} from "./interfazCartas.js";
+import {cartasJugadorEstrellas, cartasJugadorEstrellas2, interfazCartas, mostrarErrantes, mostrarSistemaSolar} from "./interfazCartas.js";
 
 //console.log(cartas);
 
@@ -88,7 +88,7 @@ function colocarSistemaSolar(jugador, posicion){
 
     // Actualizar pantalla
     interfazCartas(jugador);
-    //mostrarSistemaSolar(jugador);
+    mostrarSistemaSolar(jugador);
 }
 
 //Funcion que establece una carta como cuerpo celeste errante 
@@ -124,6 +124,7 @@ function siguienteTurno(){
         }
         interfazCartas(jugadores[0]);
         mostrarErrantes(jugadores[0]);
+        mostrarSistemaSolar(jugadores[0]);
     } else {
         console.log("Turno del jugador 2");
         if (jugadores[1].primeraVez){
@@ -132,6 +133,7 @@ function siguienteTurno(){
         }
         interfazCartas(jugadores[1]);
         mostrarErrantes(jugadores[1]);
+        mostrarSistemaSolar(jugadores[1]);
     }
 }
 
