@@ -1,21 +1,12 @@
 //PRUEBA CON SOLO CARTAS DE ESTRELLAS 
 
 //IMPORTAR LAS CLASES DE LAS CARTAS 
-import { cartasEstrella } from "./cartas.js";
+import {mazoInicialEstrellas} from "./accionesJugador.js";
 
 //VARIABLES
 const cartasJugadorEstrellas = [];
 const cartasJugadorEstrellas2 = [];
 const cartas = document.querySelectorAll(".imgCarta");
-
-
-//Se forma un mazo incicial de 7 cartas de estrellas 
-function mazoInicialEstrellas(jugador){
-    for(let i = 0; i<7; i++){
-        let num = Math.floor(Math.random() * 3);
-        jugador.cartas.push(cartasEstrella[num]);
-    }
-}
 
 
 //Función que muestras las cartas del jugador en la interfaz, actualizándolas en cada turno 
@@ -75,5 +66,6 @@ function mostrarErrantes(jugador) {
         contenedores[i].appendChild(carta);
     }
 }
+
 
 export { cartasJugadorEstrellas, cartasJugadorEstrellas2, cartas, mazoInicialEstrellas, interfazCartas, mostrarErrantes};

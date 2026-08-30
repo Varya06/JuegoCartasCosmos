@@ -36,8 +36,8 @@ interfazCartas(jugadores[0]);
 
 
 //IMPORTAR LAS CLASES DE LAS CARTAS 
-import { cartas } from "./cartas.js";
-import {cartasJugadorEstrellas, cartasJugadorEstrellas2, mazoInicialEstrellas, interfazCartas, mostrarErrantes} from "./interfazCartas.js";
+import { cartas, cartasEstrella } from "./cartas.js";
+import {cartasJugadorEstrellas, cartasJugadorEstrellas2, interfazCartas, mostrarErrantes} from "./interfazCartas.js";
 
 //console.log(cartas);
 
@@ -46,6 +46,14 @@ function mazoInicial(jugador){
     for(let i = 0; i<7; i++){
         let num = Math.floor(Math.random() * 18);
         jugador.cartas.push(cartas[num]);
+    }
+}
+
+//Se forma un mazo incicial de 7 cartas de estrellas 
+function mazoInicialEstrellas(jugador){
+    for(let i = 0; i<7; i++){
+        let num = Math.floor(Math.random() * 3);
+        jugador.cartas.push(cartasEstrella[num]);
     }
 }
 
@@ -63,10 +71,24 @@ function intercambiarCarta(jugador, posicion){
     //jugador.cartas[posicion] = nuevaCarta;
 }
 
-//Funcion que coloca una carta en el sistema solar 
-function colocarCarta(jugador, cartasSistemaSolar, posicion){
-    cartasSistemaSolar.push(jugador.cartas[posicion]);
-    jugador.cartas.splice(posicion,1);
+//PENDIENTE DE COMPROBAR SI FUNCIONA
+// Funcion que establece una carta como parte del sistema Solar
+function colocarSistemaSolar(jugador, posicion){
+    const carta = jugador.cartas[posicion];
+
+    if (!carta) {
+        return;
+    }
+
+    // Quitar de la mano
+    jugador.cartas.splice(posicion, 1);
+
+    // Guardar el objeto carta
+    jugador.sistemaSolar.push(carta);
+
+    // Actualizar pantalla
+    interfazCartas(jugador);
+    //mostrarSistemaSolar(jugador);
 }
 
 //Funcion que establece una carta como cuerpo celeste errante 
@@ -114,7 +136,7 @@ function siguienteTurno(){
 }
 
 //EXPORTAR LA FUNCION DE PASAR TURNO PARA INCLUIRLO EN ELEMENTOSHTML.JS
-export {siguienteTurno, designarErrante,jugadores};
+export {mazoInicialEstrellas, siguienteTurno, designarErrante, colocarSistemaSolar, jugadores};
 
 
 
