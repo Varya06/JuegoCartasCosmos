@@ -6,6 +6,10 @@ const filaCartas = document.getElementById("filaCartas");
 
 filaCartas.addEventListener("dragstart", arrastrar);
 
+const baraja = document.getElementById("baraja");
+
+baraja.addEventListener("dragstart", arrastrar);
+
 //Para que se puedan soltar las cartas en los rectángulos de los errantes y del sistema solar
 const errantes = document.querySelectorAll(".errante");
 

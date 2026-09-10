@@ -164,7 +164,7 @@ function siguienteTurno(){
 }
 
 //EXPORTAR LA FUNCION DE PASAR TURNO PARA INCLUIRLO EN ELEMENTOSHTML.JS
-export {mazoInicialEstrellas, siguienteTurno, designarErrante, colocarSistemaSolar, colocarCartaCentral, jugadores};
+export {mazoInicialEstrellas, siguienteTurno, designarErrante, cogerCarta,colocarSistemaSolar, colocarCartaCentral, jugadores};
 
 
 
