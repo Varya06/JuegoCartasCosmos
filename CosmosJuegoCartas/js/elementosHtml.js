@@ -48,7 +48,37 @@ function abrirSistemaSolar() {
     }
 }; 
 
-    
+
+//BOTÓN PARA MOSTRAR LAS CARTAS SIGUIENTES DEL JUGADOR (ARREGLAR)
+const botonSiguientesCartas = document.getElementById("botonSiguientesCartas");
+const cartas = document.querySelectorAll("#filaCartas .carta");
+const totalCartas = cartas.length;
+const cartasMostradas = 7; // Número de cartas que se muestran inicialmente
+let inicio = 0; // Índice de la primera carta mostrada
+
+function moverMazo(){
+    cartas.forEach(carta => carta.classList.add("ocultar"));
+
+    // Calcular el nuevo índice de inicio
+    inicio = (inicio + cartasMostradas) % totalCartas;
+
+    // Mostrar las cartas correspondientes
+    for (let i = 0; i < cartasMostradas; i++) {
+        const indice = (inicio + i) % totalCartas;
+        cartas[indice].classList.remove("ocultar");
+    }
+
+    botonSiguientesCartas.disabled = inicio >= totalCartas - cartasMostradas;
+}
+
+botonSiguientesCartas.addEventListener("click", () => {
+    console.log("Botón de siguientes cartas pulsado");
+    // Ocultar todas las cartas
+    if (inicio + cartasMostradas < totalCartas) {
+        inicio += 1; // Avanzar una carta
+        moverMazo();
+    }
+});
 
 
 

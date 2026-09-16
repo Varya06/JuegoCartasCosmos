@@ -192,10 +192,30 @@ body {
 }
 
 .carta{
+    transition: transform 0.3s ease; /* Animación suave */
     background-color:rgb(66, 227, 255);
     height:180px;
     width:120px; 
     margin:10px;
+}
+
+.carta.ocultar {
+    display: none;
+}
+
+#botonSiguientesCartas {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    z-index: 10;
 }
 
 #cartaCombate{
