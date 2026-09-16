@@ -61,9 +61,10 @@ function mazoInicialEstrellas(jugador){
 }
 
 function cogerCarta(jugador){
-    let num = Math.floor(Math.random() * 18);
-    let nuevaCarta = cartas[num];
+    let num = Math.floor(Math.random() * 3);
+    let nuevaCarta = cartasEstrella[num];
     jugador.cartas.push(nuevaCarta);
+    interfazCartas(jugador);
 }
 
 function intercambiarCarta(jugador, posicion){

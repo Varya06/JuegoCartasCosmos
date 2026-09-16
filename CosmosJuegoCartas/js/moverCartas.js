@@ -1,14 +1,21 @@
 //Elementos que se irán modificando
 //Para que se puedan arrastrar todas las cartas
-import { jugadores, colocarSistemaSolar, designarErrante, colocarCartaCentral } from "./accionesJugador.js";
+import { jugadores, colocarSistemaSolar, cogerCarta, designarErrante, colocarCartaCentral } from "./accionesJugador.js";
 
 const filaCartas = document.getElementById("filaCartas");
 
 filaCartas.addEventListener("dragstart", arrastrar);
+filaCartas.addEventListener("dragover", permitirSoltar);
+filaCartas.addEventListener("drop", soltar);
 
 const baraja = document.getElementById("baraja");
 
 baraja.addEventListener("dragstart", arrastrar);
+
+const cartasBaraja = baraja.querySelectorAll(".carta");
+cartasBaraja.forEach(carta => {
+    carta.setAttribute("draggable", "true");
+});
 
 //Para que se puedan soltar las cartas en los rectángulos de los errantes y del sistema solar
 const errantes = document.querySelectorAll(".errante");
@@ -48,22 +55,33 @@ function arrastrar(e) {
 function soltar(e) {
 
     e.preventDefault();
+    //Comprobar en la consola
+    console.log("Soltando en:", e.currentTarget.id); // Verifica dónde se suelta
+    console.log("Datos transferidos:", e.dataTransfer.getData("posicion"));
 
-    const posicion = parseInt(
-        e.dataTransfer.getData("posicion")
-    );
 
     const jugadorActual = jugadores.find(
         jugador => jugador.turno
     );
 
     if (e.currentTarget.classList.contains("errante")) {
+        const posicion = parseInt(
+        e.dataTransfer.getData("posicion")
+        );
 
         designarErrante(jugadorActual, posicion);
     } else if (e.currentTarget.id === "imagen-sistemas") {
+        const posicion = parseInt(
+        e.dataTransfer.getData("posicion")
+        );
         colocarSistemaSolar(jugadorActual, posicion);
     } else if (e.currentTarget.id === "cartaCombate") {
+        const posicion = parseInt(
+        e.dataTransfer.getData("posicion")
+        );
         colocarCartaCentral(jugadorActual, posicion);
+    } else if (e.currentTarget.id === "filaCartas") {
+        cogerCarta(jugadorActual);
     }
 }
 
