@@ -1,6 +1,7 @@
 //CERRAR LA FILA DE CARTAS AL PULSAR EL BOTÓN CON LA FLECHA 
 //O VOLVER A ABRIRLA
 import { jugadores } from "./accionesJugador.js";
+import {interfazCartas} from "./interfazCartas.js";
 
 const boton = document.getElementById("botonCartas");
 const botonSistemaSolar = document.getElementById("botonVerSistema");
@@ -49,39 +50,30 @@ function abrirSistemaSolar() {
 }; 
 
 
-//BOTÓN PARA MOSTRAR LAS CARTAS SIGUIENTES DEL JUGADOR (ARREGLAR)
+//BOTÓN PARA MOSTRAR LAS CARTAS SIGUIENTES DEL JUGADOR 
 const botonSiguientesCartas = document.getElementById("botonSiguientesCartas");
 const cartas = document.querySelectorAll("#filaCartas .carta");
-const totalCartas = cartas.length;
 const cartasMostradas = 7; // Número de cartas que se muestran inicialmente
 let inicio = 0; // Índice de la primera carta mostrada
 
+
+
 function moverMazo(){
-    cartas.forEach(carta => carta.classList.add("ocultar"));
+    const jugadorActual = jugadores.find(jugador => jugador.turno);
+    const totalCartasJugador = jugadorActual.cartas.length;
 
     // Calcular el nuevo índice de inicio
-    inicio = (inicio + cartasMostradas) % totalCartas;
+    inicio = (inicio + cartasMostradas) % totalCartasJugador;
 
     // Mostrar las cartas correspondientes
-    for (let i = 0; i < cartasMostradas; i++) {
-        const indice = (inicio + i) % totalCartas;
-        cartas[indice].classList.remove("ocultar");
-    }
+    interfazCartas(jugadorActual, inicio);
 
-    botonSiguientesCartas.disabled = inicio >= totalCartas - cartasMostradas;
 }
 
 botonSiguientesCartas.addEventListener("click", () => {
     console.log("Botón de siguientes cartas pulsado");
-    // Ocultar todas las cartas
-    if (inicio + cartasMostradas < totalCartas) {
-        inicio += 1; // Avanzar una carta
-        moverMazo();
-    }
+    moverMazo();
 });
-
-
-
 
 
 

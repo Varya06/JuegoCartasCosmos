@@ -63,8 +63,9 @@ function mazoInicialEstrellas(jugador){
 function cogerCarta(jugador){
     let num = Math.floor(Math.random() * 3);
     let nuevaCarta = cartasEstrella[num];
+    console.log("Carta cogida: " + nuevaCarta.tipoEstrella);
     jugador.cartas.push(nuevaCarta);
-    interfazCartas(jugador);
+    interfazCartas(jugador, 0);
 }
 
 function intercambiarCarta(jugador, posicion){
@@ -91,7 +92,7 @@ function colocarSistemaSolar(jugador, posicion){
     jugador.sistemaSolar.push(carta);
 
     // Actualizar pantalla
-    interfazCartas(jugador);
+    interfazCartas(jugador, 0);
     mostrarSistemaSolar(jugador);
 }
 
@@ -112,7 +113,7 @@ function designarErrante(jugador, posicion) {
     jugador.errantes.push(carta);
 
     // Actualizar pantalla
-    interfazCartas(jugador);
+    interfazCartas(jugador, 0);
     mostrarErrantes(jugador);
 }
 
@@ -132,7 +133,7 @@ function colocarCartaCentral(jugador, posicion){
     jugador.cartaCentral = carta;
 
     // Actualizar pantalla
-    interfazCartas(jugador);
+    interfazCartas(jugador, 0);
     mostrarCartaCentral(jugador);
 }
 
@@ -147,7 +148,7 @@ function siguienteTurno(){
             mazoInicialEstrellas(jugadores[0]);
             jugadores[0].primeraVez = false;
         }
-        interfazCartas(jugadores[0]);
+        interfazCartas(jugadores[0], 0);
         mostrarErrantes(jugadores[0]);
         mostrarSistemaSolar(jugadores[0]);
         mostrarCartaCentral(jugadores[0]);
@@ -157,7 +158,7 @@ function siguienteTurno(){
             mazoInicialEstrellas(jugadores[1]);
             jugadores[1].primeraVez = false;
         }
-        interfazCartas(jugadores[1]);
+        interfazCartas(jugadores[1], 0);
         mostrarErrantes(jugadores[1]);
         mostrarSistemaSolar(jugadores[1]);
         mostrarCartaCentral(jugadores[1]);

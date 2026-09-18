@@ -192,14 +192,13 @@ body {
 }
 
 .carta{
-    transition: transform 0.3s ease; /* Animación suave */
     background-color:rgb(66, 227, 255);
     height:180px;
     width:120px; 
     margin:10px;
 }
 
-.carta.ocultar {
+.ocultarCarta {
     display: none;
 }
 
@@ -247,6 +246,7 @@ body {
 }
 
 .imgCarta{
+    transition: transform 0.3s ease; /* Animación suave */
     width: 100%;
     height: 100%;
     object-fit: cover;

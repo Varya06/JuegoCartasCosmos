@@ -10,33 +10,31 @@ const cartas = document.querySelectorAll(".imgCarta");
 
 
 //Función que muestras las cartas del jugador en la interfaz, actualizándolas en cada turno 
-function interfazCartas(jugador){
+function interfazCartas(jugador, inicio = 0){
     const contenedores = document.querySelectorAll(".carta");
+    const cartasMostradas = 7; // Número de cartas que se muestran inicialmente
 
     // Borrar lo que había antes
     contenedores.forEach(contenedor => {
         contenedor.innerHTML = "";
     });
 
-    // Crear las cartas actuales del jugador
-    for (let i = 0; i < jugador.cartas.length; i++) {
+     // Crear las cartas actuales del jugador
+    for (let i = inicio; i < jugador.cartas.length && i < inicio + cartasMostradas; i++) {
+        const indiceContenedor = i - inicio; // Calcular el índice del contenedor correspondiente
 
-        if (i >= contenedores.length) {
-            break;
+        if (indiceContenedor >= contenedores.length) {
+            break; // Salir del bucle si no hay más contenedores disponibles
         }
 
         const carta = document.createElement("img");
-
         carta.classList.add("imgCarta");
         carta.draggable = true;
-
-        // guardar la posición que ocupa en jugador.cartas
         carta.dataset.posicion = i;
-
         carta.src = "../imagenes/" + jugador.cartas[i].tipoEstrella + ".png";
 
-        contenedores[i].appendChild(carta);
-    } 
+        contenedores[indiceContenedor].appendChild(carta);
+    }
 }
 
 
