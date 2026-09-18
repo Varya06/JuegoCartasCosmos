@@ -27,6 +27,18 @@ botonSistemaSolar.addEventListener("click", () => {
 //Para poder consultar el que cartas tiene el sistema solar del otro jugador, y poder atacar una de sus cartas
 //FALTA: QUE EL NOMBRE DE LA CARTA ELEGIDA CAMBIE DE COLOR AL SELECCIONARLO Y QUE AL ATACAR CARTA SE ABRA LA LISTA DE 
 //CARTAS ERRANTES PARA ELEGIR CUAL USAR Y COMPROBAR SI LA DERROTA O NO 
+function seleccionErrantes() {
+    const jugadorActual = jugadores.find(jugador => jugador.turno);
+    const errantes = jugadorActual.errantes;
+
+    if (errantes.length === 0) {
+        alert("No tienes cartas errantes para atacar.");
+        return;
+    } else {
+        alert("Primera carta errante: " + errantes[0].tipoEstrella);
+    }
+}
+
 function abrirSistemaSolar() {
     const panelSistemaSolar = document.getElementById("panelSistemaSolar");
     panelSistemaSolar.classList.toggle("oculto");
@@ -45,6 +57,10 @@ function abrirSistemaSolar() {
         const botonAtacar = document.createElement("button");
         botonAtacar.id = "botonAtacarCarta";
         botonAtacar.textContent = "Atacar carta";
+        botonAtacar.addEventListener("click", () => {
+            console.log("Botón de atacar cartas pulsado");
+            seleccionErrantes();
+        });
         panelSistemaSolar.appendChild(botonAtacar);
     }
 }; 
