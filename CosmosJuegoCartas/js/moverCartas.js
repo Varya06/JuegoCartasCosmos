@@ -81,7 +81,15 @@ function soltar(e) {
         );
         colocarCartaCentral(jugadorActual, posicion);
     } else if (e.currentTarget.id === "filaCartas") {
-        cogerCarta(jugadorActual);
+        //Para que solo puedas coger una carta durante tu turno
+        if (!jugadorActual.cartaNueva && jugadorActual.cartas.length < 14) {
+            cogerCarta(jugadorActual);
+        } else if (jugadorActual.cartaNueva) {
+            alert("¡No puedes coger más de una carta en tu turno!");
+        } else if (jugadorActual.cartas.length >= 14) {
+            alert("¡No puedes tener más de 14 cartas en tu mano!");
+        }
+        jugadorActual.cartaNueva = true; // Marcar que el jugador ha cogido una carta nueva
     }
 }
 

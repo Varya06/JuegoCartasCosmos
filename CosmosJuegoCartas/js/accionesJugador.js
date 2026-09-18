@@ -21,7 +21,8 @@ const jugadores = [
         errantes: [],
         cartaCentral: null,
         primeraVez: true,
-        turno: true
+        turno: true,
+        cartaNueva: false
     },
     {
         cartas: [],
@@ -29,7 +30,8 @@ const jugadores = [
         errantes: [],
         primeraVez: true,
         cartaCentral: null,
-        turno: false
+        turno: false,
+        cartaNueva: false,
     }
 ];
 mazoInicialEstrellas(jugadores[0]);
@@ -64,6 +66,7 @@ function cogerCarta(jugador){
     let num = Math.floor(Math.random() * 3);
     let nuevaCarta = cartasEstrella[num];
     console.log("Carta cogida: " + nuevaCarta.tipoEstrella);
+    alert("Carta cogida: " + nuevaCarta.tipoEstrella);
     jugador.cartas.push(nuevaCarta);
     interfazCartas(jugador, 0);
 }
@@ -152,6 +155,11 @@ function siguienteTurno(){
         mostrarErrantes(jugadores[0]);
         mostrarSistemaSolar(jugadores[0]);
         mostrarCartaCentral(jugadores[0]);
+
+        if (jugadores[0].cartaNueva) {
+            jugadores[0].cartaNueva = false; // Resetearlo para que pueda volver a coger una carta
+        }
+
     } else {
         console.log("Turno del jugador 2");
         if (jugadores[1].primeraVez){
@@ -162,6 +170,10 @@ function siguienteTurno(){
         mostrarErrantes(jugadores[1]);
         mostrarSistemaSolar(jugadores[1]);
         mostrarCartaCentral(jugadores[1]);
+
+        if (jugadores[1].cartaNueva) {
+            jugadores[1].cartaNueva = false; // Resetearlo para que pueda volver a coger una carta
+        }
     }
 }
 
