@@ -1,6 +1,7 @@
 //CERRAR LA FILA DE CARTAS AL PULSAR EL BOTÓN CON LA FLECHA 
 //O VOLVER A ABRIRLA
 import { jugadores } from "./accionesJugador.js";
+import { interfazCartas } from "./interfazCartas.js";
 
 const boton = document.getElementById("botonCartas");
 const botonSistemaSolar = document.getElementById("botonVerSistema");
@@ -122,6 +123,32 @@ function abrirSistemaSolar() {
         panelSistemaSolar.appendChild(botonAtacar);
     }
 }; 
+
+//BOTÓN PARA MOSTRAR LAS SIGUIENTES CARTAS DEL MAZO 
+//BOTÓN PARA MOSTRAR LAS CARTAS SIGUIENTES DEL JUGADOR 
+const botonSiguientesCartas = document.getElementById("botonSiguientesCartas");
+const cartas = document.querySelectorAll("#filaCartas .carta");
+const totalCartas = cartas.length;
+const cartasMostradas = 7; // Número de cartas que se muestran inicialmente
+let inicio = 0; // Índice de la primera carta mostrada
+
+
+
+function moverMazo(){
+    const jugadorActual = jugadores.find(jugador => jugador.turno);
+    const totalCartasJugador = jugadorActual.cartas.length;
+
+    // Calcular el nuevo índice de inicio
+    inicio = (inicio + cartasMostradas) % totalCartasJugador;
+
+    // Mostrar las cartas correspondientes
+    interfazCartas(jugadorActual, inicio);
+}
+
+botonSiguientesCartas.addEventListener("click", () => {
+    console.log("Botón de siguientes cartas pulsado");
+    moverMazo();
+});
 
 
 
