@@ -1,6 +1,6 @@
 //CERRAR LA FILA DE CARTAS AL PULSAR EL BOTÓN CON LA FLECHA 
 //O VOLVER A ABRIRLA
-import { jugadores } from "./accionesJugador.js";
+import { jugadores, destruirCartaSistema } from "./accionesJugador.js";
 import { interfazCartas } from "./interfazCartas.js";
 
 const boton = document.getElementById("botonCartas");

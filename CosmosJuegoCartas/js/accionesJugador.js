@@ -22,7 +22,10 @@ const jugadores = [
         cartaCentral: null,
         primeraVez: true,
         turno: true,
-        cartaNueva: false
+        cartaNueva: false,
+        erranteColocada: false,
+        cartaSistemaColocada: false,
+        cartaCentralColocada: false
     },
     {
         cartas: [],
@@ -32,8 +35,13 @@ const jugadores = [
         cartaCentral: null,
         turno: false,
         cartaNueva: false,
+        erranteColocada: false,
+        cartaSistemaColocada: false,
+        cartaCentralColocada: false
     }
 ];
+
+//Lo que se muestra al inicio de la partida
 mazoInicialEstrellas(jugadores[0]);
 jugadores[0].primeraVez = false;
 interfazCartas(jugadores[0]);
@@ -140,9 +148,22 @@ function colocarCartaCentral(jugador, posicion){
     mostrarCartaCentral(jugador);
 }
 
+//Funcion para destruir una carta del sistema solar del otro jugador 
+function destruirCartaSistema(jugador,posicion){
+    const carta = jugador.sistemaSolar[posicion];
+
+    //Eliminarla de la lista de cartas del sistema solar
+    jugador.sistemaSolar.splice(posicion,1);
+
+    //Actualizar pantalla
+    mostrarSistemaSolar(jugador);
+}
+
 
 function siguienteTurno(){
     //pasar al turno del siguiente jugador
+    //mostrar las cartas del jugador en sus lugares correspondientes
+    //reiniciar los booleanos para que pueda volver a realizar acciones 
     jugadores[0].turno = !jugadores[0].turno;
     jugadores[1].turno = !jugadores[1].turno;
     if (jugadores[0].turno){
@@ -160,6 +181,18 @@ function siguienteTurno(){
             jugadores[0].cartaNueva = false; // Resetearlo para que pueda volver a coger una carta
         }
 
+        if(jugadores[0].erranteColocada){
+            jugadores[0].erranteColocada = false;
+        }
+
+        if(jugadores[0].cartaSistemaColocada){
+            jugadores[0].cartaSistemaColocada = false;
+        }
+
+        if(jugadores[0].cartaCentralColocada){
+            jugadores[0].cartaCentralColocada = false;
+        }
+
     } else {
         console.log("Turno del jugador 2");
         if (jugadores[1].primeraVez){
@@ -172,13 +205,26 @@ function siguienteTurno(){
         mostrarCartaCentral(jugadores[1]);
 
         if (jugadores[1].cartaNueva) {
-            jugadores[1].cartaNueva = false; // Resetearlo para que pueda volver a coger una carta
+            jugadores[1].cartaNueva = false; 
+        }
+
+        if (jugadores[1].erranteColocada) {
+            jugadores[1].erranteColocada = false; 
+        }
+
+        if (jugadores[1].cartaSistemaColocada) {
+            jugadores[1].cartaSistemaColocada = false; 
+        }
+
+        if (jugadores[1].cartaCentralColocada) {
+            jugadores[1].cartaCentralColocada = false; 
         }
     }
 }
 
 //EXPORTAR LA FUNCION DE PASAR TURNO PARA INCLUIRLO EN ELEMENTOSHTML.JS
-export {mazoInicialEstrellas, siguienteTurno, designarErrante, cogerCarta,colocarSistemaSolar, colocarCartaCentral, jugadores};
+export {mazoInicialEstrellas, siguienteTurno, designarErrante, 
+    cogerCarta,colocarSistemaSolar, colocarCartaCentral, destruirCartaSistema,jugadores};
 
 
 

@@ -69,17 +69,37 @@ function soltar(e) {
         e.dataTransfer.getData("posicion")
         );
 
-        designarErrante(jugadorActual, posicion);
+         if (!jugadorActual.erranteColocada){
+            designarErrante(jugadorActual, posicion);
+            jugadorActual.erranteColocada = true;
+        } else {
+            alert("Solo puedes designar una errante en tu turno");
+        }
+
+       
     } else if (e.currentTarget.id === "imagen-sistemas") {
         const posicion = parseInt(
         e.dataTransfer.getData("posicion")
         );
-        colocarSistemaSolar(jugadorActual, posicion);
+        if (!jugadorActual.cartaSistemaColocada){
+            colocarSistemaSolar(jugadorActual, posicion);
+            jugadorActual.cartaSistemaColocada = true;
+        } else {
+            alert("Solo puedes colocar una carta en tu sistema solar durante tu turno");
+        }
+        
     } else if (e.currentTarget.id === "cartaCombate") {
         const posicion = parseInt(
         e.dataTransfer.getData("posicion")
         );
-        colocarCartaCentral(jugadorActual, posicion);
+
+        if(!jugadorActual.cartaCentralColocada){
+            colocarCartaCentral(jugadorActual, posicion);
+            jugadorActual.cartaCentralColocada = true;
+        } else {
+            alert("Solo puedes colocar una carta de combate en tu turno");
+        }
+        
     } else if (e.currentTarget.id === "filaCartas") {
         //Para que solo puedas coger una carta durante tu turno
         if (!jugadorActual.cartaNueva && jugadorActual.cartas.length < 14) {
