@@ -159,6 +159,17 @@ function destruirCartaSistema(jugador,posicion){
     mostrarSistemaSolar(jugador);
 }
 
+//Funcion para destruir una carta errante despues de haber sido usada
+function destruirCartaErrante(jugador,posicion){
+    const carta = jugador.errantes[posicion];
+
+    //Eliminarla de la lista de cartas errantes 
+    jugador.errantes.splice(posicion,1);
+
+    //Actualizar pantalla
+    mostrarErrantes(jugador);
+}
+
 
 function siguienteTurno(){
     //pasar al turno del siguiente jugador
@@ -224,7 +235,8 @@ function siguienteTurno(){
 
 //EXPORTAR LA FUNCION DE PASAR TURNO PARA INCLUIRLO EN ELEMENTOSHTML.JS
 export {mazoInicialEstrellas, siguienteTurno, designarErrante, 
-    cogerCarta,colocarSistemaSolar, colocarCartaCentral, destruirCartaSistema,jugadores};
+    cogerCarta,colocarSistemaSolar, colocarCartaCentral, destruirCartaSistema,
+    destruirCartaErrante, jugadores};
 
 
 

@@ -1,6 +1,6 @@
 //CERRAR LA FILA DE CARTAS AL PULSAR EL BOTÓN CON LA FLECHA 
 //O VOLVER A ABRIRLA
-import { jugadores, destruirCartaSistema } from "./accionesJugador.js";
+import { jugadores, destruirCartaSistema, destruirCartaErrante } from "./accionesJugador.js";
 import { interfazCartas } from "./interfazCartas.js";
 
 const boton = document.getElementById("botonCartas");
@@ -71,18 +71,33 @@ function abrirSistemaSolar() {
         botonAtacar.id = "botonAtacarCarta";
         botonAtacar.textContent = "Atacar carta";
 
-        const cartasErrantes = jugadores.find(jugador => jugador.turno).errantes;
+        const jugador = jugadores.find(jugador => jugador.turno);
+        const jugador2 = jugadores.find(jugador => !jugador.turno);
+        const cartasErrantes = jugador.errantes;
+
+        let vecesBotonAtacar = 0;
+
+
         botonAtacar.addEventListener("click", () => {
+           
+            vecesBotonAtacar += 1;
+
+            // Actualiza el texto del botón según si está abierta la ventana o no
+            if (vecesBotonAtacar % 2 === 0) {
+                botonAtacar.textContent = "Atacar carta";
+            } else {
+                botonAtacar.textContent = "Cerrar errantes";
+            }
+            
+
+            const panelErrantes = document.getElementById("panelErrantes");
+            panelErrantes.classList.toggle("oculto");
+
             // Aquí se abre una ventana para seleccionar la carta errante que se va a usar para atacar
             if (cartasErrantes.length === 0) {
                 alert("No tienes cartas errantes para atacar.");
             } else {
-                //Para cerra el panel, se cambia el texto del boton
-                botonAtacar.textContent = "Cerrar errantes";
-
-                const panelErrantes = document.getElementById("panelErrantes");
-                panelErrantes.classList.toggle("oculto");
-
+        
                 if (!panelErrantes.classList.contains("oculto")) {
                     panelErrantes.innerHTML = '<h3>Cartas errantes listas para atacar:</h3>';
                     jugadores.find(jugador => jugador.turno).errantes.forEach(carta => {
@@ -109,6 +124,19 @@ function abrirSistemaSolar() {
                             //Comprobar si la carta errante seleccionada puede derrotar a la carta del sistema solar
                             if (cartaSeleccionadaErrante.ordenFuerza < cartaSeleccionada.ordenFuerza) {
                                 alert("¡Has destruido la carta del sistema solar!");
+                                let tipoCarta = cartaSeleccionada.tipoEstrella; 
+                                let posCartaSistema = jugador2.sistemaSolar.indexOf(tipoCarta);
+
+                                //Para que desaparezca de la lista del otro jugador y de su interfaz 
+                                destruirCartaSistema(jugador2,posCartaSistema);
+                                console.log("Carta del sistema solar destruida");
+
+                                //Para que desaparezca también la carta errante, que es de un solo uso
+                                let tipoErrante = cartaSeleccionadaErrante.tipoEstrella; 
+                                let posCartaErrante = jugador.errantes.indexOf(tipoErrante);
+                                destruirCartaErrante(jugador,posCartaErrante);
+                                console.log("Carta errante destruida");
+
                             } else {
                                 alert("Tú carta no es lo bastante fuerte para destruirla :(");
                             }
