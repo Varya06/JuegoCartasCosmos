@@ -25,7 +25,8 @@ const jugadores = [
         cartaNueva: false,
         erranteColocada: false,
         cartaSistemaColocada: false,
-        cartaCentralColocada: false
+        cartaCentralColocada: false,
+        erranteDestruida: false
     },
     {
         cartas: [],
@@ -37,7 +38,8 @@ const jugadores = [
         cartaNueva: false,
         erranteColocada: false,
         cartaSistemaColocada: false,
-        cartaCentralColocada: false
+        cartaCentralColocada: false,
+        erranteDestruida: false
     }
 ];
 
@@ -204,6 +206,10 @@ function siguienteTurno(){
             jugadores[0].cartaCentralColocada = false;
         }
 
+        if(jugadores[0].erranteDestruida){
+            jugadores[0].erranteDestruida = false;
+        }
+
     } else {
         console.log("Turno del jugador 2");
         if (jugadores[1].primeraVez){
@@ -229,6 +235,10 @@ function siguienteTurno(){
 
         if (jugadores[1].cartaCentralColocada) {
             jugadores[1].cartaCentralColocada = false; 
+        }
+
+        if (jugadores[1].erranteDestruida) {
+            jugadores[1].erranteDestruida = false; 
         }
     }
 }

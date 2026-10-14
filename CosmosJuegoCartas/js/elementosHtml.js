@@ -28,8 +28,7 @@ let cartaSeleccionada = null; // Variable para almacenar la carta seleccionada
 let cartaSeleccionadaErrante = null; 
 
 //Para poder consultar el que cartas tiene el sistema solar del otro jugador, y poder atacar una de sus cartas
-//FALTA: QUE EL NOMBRE DE LA CARTA ELEGIDA CAMBIE DE COLOR AL SELECCIONARLO Y QUE AL ATACAR CARTA SE ABRA LA LISTA DE 
-//CARTAS ERRANTES PARA ELEGIR CUAL USAR Y COMPROBAR SI LA DERROTA O NO 
+//FALTA: QUE SE ELIMINE EL NOMBRE DE LAS CARTAS DESTRUIDAS EN EL PANEL 
 function abrirSistemaSolar() {
     const panelSistemaSolar = document.getElementById("panelSistemaSolar");
     panelSistemaSolar.classList.toggle("oculto");
@@ -45,7 +44,12 @@ function abrirSistemaSolar() {
         jugadores.find(jugador => !jugador.turno).sistemaSolar.forEach(carta => {
             const cartaElemento = document.createElement("p");
             cartaElemento.textContent = carta.tipoEstrella;
+
+            carta.elementoHTML = cartaElemento;
+
             panelSistemaSolar.appendChild(cartaElemento);
+
+            //Acciones realizadas al mover el ratón o seleccionarlas 
             cartaElemento.addEventListener("mouseover", () => {
                 //Cambia el fondo de la letra para resaltar que se va a seleccionar dicha carta
                 cartaElemento.style.backgroundColor = "purple";
@@ -103,7 +107,12 @@ function abrirSistemaSolar() {
                     jugadores.find(jugador => jugador.turno).errantes.forEach(carta => {
                         const cartaErrante = document.createElement("p");
                         cartaErrante.textContent = carta.tipoEstrella;
+
+                        carta.elementoHTML = cartaErrante; //Para guardar el párrafo de la carta
+
+                        //Acciones al pasar el ratón o seleccionarla de la lista
                         panelErrantes.appendChild(cartaErrante);
+
                         cartaErrante.addEventListener("mouseover", () => {
                             //Cambia el fondo de la letra para resaltar que se va a seleccionar dicha carta
                             cartaErrante.style.backgroundColor = "purple";
@@ -122,23 +131,35 @@ function abrirSistemaSolar() {
                             console.log("Carta errante seleccionada: " + cartaSeleccionadaErrante.tipoEstrella); 
 
                             //Comprobar si la carta errante seleccionada puede derrotar a la carta del sistema solar
-                            if (cartaSeleccionadaErrante.ordenFuerza < cartaSeleccionada.ordenFuerza) {
+                            if (cartaSeleccionadaErrante.ordenFuerza < cartaSeleccionada.ordenFuerza
+                                && !jugador.erranteDestruida) {
                                 alert("¡Has destruido la carta del sistema solar!");
                                 let tipoCarta = cartaSeleccionada.tipoEstrella; 
                                 let posCartaSistema = jugador2.sistemaSolar.indexOf(tipoCarta);
 
                                 //Para que desaparezca de la lista del otro jugador y de su interfaz 
                                 destruirCartaSistema(jugador2,posCartaSistema);
+
+                                //Para que desaparezca también de la interfaz
+                                cartaSeleccionada.elementoHTML.remove();
+                                    
                                 console.log("Carta del sistema solar destruida");
 
                                 //Para que desaparezca también la carta errante, que es de un solo uso
-                                let tipoErrante = cartaSeleccionadaErrante.tipoEstrella; 
-                                let posCartaErrante = jugador.errantes.indexOf(tipoErrante);
+                                let posCartaErrante = jugador.errantes.indexOf(cartaSeleccionadaErrante);
                                 destruirCartaErrante(jugador,posCartaErrante);
+
+                                //Para que desaparezca también de la interfaz
+                                cartaSeleccionadaErrante.elementoHTML.remove();
+                                
+                                //Para que solo se pueda atacar con una errante una vez por turno
+                                jugador.erranteDestruida = true; 
                                 console.log("Carta errante destruida");
 
-                            } else {
+                            } else if(cartaSeleccionadaErrante.ordenFuerza >= cartaSeleccionada.ordenFuerza){
                                 alert("Tú carta no es lo bastante fuerte para destruirla :(");
+                            } else if(jugador.erranteDestruida){
+                                alert("Solo puedes atacar con una errante durante tu turno");
                             }
 
                         });
