@@ -1,6 +1,8 @@
 //Elementos que se irán modificando
 //Para que se puedan arrastrar todas las cartas
 import { jugadores, colocarSistemaSolar, cogerCarta, designarErrante, colocarCartaCentral } from "./accionesJugador.js";
+import { abrirMenuCombate} from "./elementosHtml.js";
+
 
 const filaCartas = document.getElementById("filaCartas");
 
@@ -64,6 +66,11 @@ function soltar(e) {
         jugador => jugador.turno
     );
 
+    const jugadorSiguiente = jugadores.find(
+        jugador => !jugador.turno
+    )
+        
+
     if (e.currentTarget.classList.contains("errante")) {
         const posicion = parseInt(
         e.dataTransfer.getData("posicion")
@@ -94,8 +101,12 @@ function soltar(e) {
         );
 
         if(!jugadorActual.cartaCentralColocada){
-            colocarCartaCentral(jugadorActual, posicion);
+            const cartaCentral = colocarCartaCentral(jugadorActual,posicion);
             jugadorActual.cartaCentralColocada = true;
+            console.log("La carta central es:",cartaCentral);
+            //Se abre un menú para que el otro jugador elija una carta de su mazo 
+            //para entregarla 
+            abrirMenuCombate(jugadorSiguiente,cartaCentral);
         } else {
             alert("Solo puedes colocar una carta de combate en tu turno");
         }

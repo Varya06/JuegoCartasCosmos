@@ -24,6 +24,7 @@ botonSistemaSolar.addEventListener("click", () => {
     abrirSistemaSolar();
 });
 
+
 let cartaSeleccionada = null; // Variable para almacenar la carta seleccionada
 let cartaSeleccionadaErrante = null; 
 
@@ -198,6 +199,39 @@ botonSiguientesCartas.addEventListener("click", () => {
     console.log("Botón de siguientes cartas pulsado");
     moverMazo();
 });
+
+
+
+
+
+//Abrir el menú de selección de cartas cuando un jugador coloque una 
+//carta de batalla central 
+
+function abrirMenuCombate(jugadorSiguiente,cartaCentral){
+    const panelCombate = document.getElementById("panelCombate");
+    panelCombate.classList.toggle("oculto");
+    
+    //Crear el texto 
+    panelCombate.innerHTML = `<h2>COMBATE DE CARTAS  </h2>
+        <h3>El otro jugador debe abrir su mazo y seleccionar la carta
+    a entregar:</h3>`;
+
+    //Crear un botón para que el otro jugador acceda a su mazo 
+    const botonCombate = document.createElement('button');
+    botonCombate.innerHTML = "Ver mazo";
+    botonCombate.id = "botonCombate";
+    panelCombate.appendChild(botonCombate);
+
+    //Abrir el mazo al pulsar el boton 
+    botonCombate.addEventListener("click", () => {
+        //abrirMazo(); DESARROLLAR FUNCIÓN
+        console.log("Botón de combate pulsado");
+    });
+
+    //CREAR UN BOTÓN PARA CERRAR EL MENÚ!!
+}
+
+export{abrirMenuCombate};
 
 
 

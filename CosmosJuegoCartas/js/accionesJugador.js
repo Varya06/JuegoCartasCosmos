@@ -148,6 +148,8 @@ function colocarCartaCentral(jugador, posicion){
     // Actualizar pantalla
     interfazCartas(jugador, 0);
     mostrarCartaCentral(jugador);
+
+    return jugador.cartaCentral; 
 }
 
 //Funcion para destruir una carta del sistema solar del otro jugador 
@@ -158,7 +160,7 @@ function destruirCartaSistema(jugador,posicion){
     jugador.sistemaSolar.splice(posicion,1);
 
     //Actualizar pantalla
-    mostrarSistemaSolar(jugador);
+    //mostrarSistemaSolar(jugador);
 }
 
 //Funcion para destruir una carta errante despues de haber sido usada
