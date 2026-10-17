@@ -174,6 +174,15 @@ function destruirCartaErrante(jugador,posicion){
     mostrarErrantes(jugador);
 }
 
+//Funcion para quitar una carta del mazo una vez que ha sido entregada
+function entregarCarta(jugador,posicion){
+    const carta = jugador.cartas[posicion];
+
+    //Eliminarla de la lista de cartas del jugador 
+    jugador.cartas.splice(posicion,1);
+
+}
+
 
 function siguienteTurno(){
     //pasar al turno del siguiente jugador
@@ -248,7 +257,7 @@ function siguienteTurno(){
 //EXPORTAR LA FUNCION DE PASAR TURNO PARA INCLUIRLO EN ELEMENTOSHTML.JS
 export {mazoInicialEstrellas, siguienteTurno, designarErrante, 
     cogerCarta,colocarSistemaSolar, colocarCartaCentral, destruirCartaSistema,
-    destruirCartaErrante, jugadores};
+    destruirCartaErrante, entregarCarta, jugadores};
 
 
 

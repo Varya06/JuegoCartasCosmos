@@ -405,10 +405,29 @@ a{
     left: 50%;
     transform: translate(-50%, -50%);
 
-    width: 40%;
-    height: 40%;
+    width: 70%;
+    height: 70%;
 
-    background-color: rgba(181, 150, 219, 0.8);
+    background-color: rgba(181, 150, 219);
+}
+
+#panelCartas {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 70%;
+    height: 70%;
+
+    background-color: rgba(181, 150, 219);
+}
+
+#cartaAdversario{
+    background-color:rgb(66, 227, 255);
+    height:150px;
+    width:100px; 
+    margin:10px;
 }
 
 #panelCombate {
@@ -451,6 +470,33 @@ a{
 
 
 #botonAtacarCarta{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;    
+    background-color: blue;
+
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+
+    margin: 3px;
+    margin-top:10px;
+    margin-bottom:2px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    width:200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Tangerine', cursive;
+    font-size: 40px;
+    color:rgb(239, 202, 252);
+}
+
+.botonCerrar{
     background-repeat: no-repeat;
     background-size: 100% 100%;    
     background-color: blue;

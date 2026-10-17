@@ -1,6 +1,6 @@
 //CERRAR LA FILA DE CARTAS AL PULSAR EL BOTÓN CON LA FLECHA 
 //O VOLVER A ABRIRLA
-import { jugadores, destruirCartaSistema, destruirCartaErrante } from "./accionesJugador.js";
+import { jugadores, destruirCartaSistema, destruirCartaErrante, entregarCarta } from "./accionesJugador.js";
 import { interfazCartas } from "./interfazCartas.js";
 
 const boton = document.getElementById("botonCartas");
@@ -43,8 +43,9 @@ function abrirSistemaSolar() {
         <h3>Cartas del sistema solar del otro jugador:</h3>`;
 
         jugadores.find(jugador => !jugador.turno).sistemaSolar.forEach(carta => {
-            const cartaElemento = document.createElement("p");
-            cartaElemento.textContent = carta.tipoEstrella;
+            const cartaElemento = document.createElement("img");
+            cartaElemento.src = carta.imagen;
+            cartaElemento.id = "cartaAdversario";
 
             carta.elementoHTML = cartaElemento;
 
@@ -67,7 +68,7 @@ function abrirSistemaSolar() {
                 cartaElemento.style.color = "white";
                 cartaSeleccionada = carta; // Almacena la carta seleccionada
                 console.log("Carta seleccionada: " + cartaSeleccionada); // Muestra la carta seleccionada en la consola
-                 console.log("Carta seleccionada: " + cartaSeleccionada.tipoEstrella); // Muestra la carta seleccionada en la consola
+                console.log("Carta seleccionada: " + cartaSeleccionada.tipoEstrella); // Muestra la carta seleccionada en la consola
             });
             //panelSistemaSolar.innerHTML += "<p>" + carta.tipoEstrella + "</p>";
         });
@@ -106,8 +107,9 @@ function abrirSistemaSolar() {
                 if (!panelErrantes.classList.contains("oculto")) {
                     panelErrantes.innerHTML = '<h3>Cartas errantes listas para atacar:</h3>';
                     jugadores.find(jugador => jugador.turno).errantes.forEach(carta => {
-                        const cartaErrante = document.createElement("p");
-                        cartaErrante.textContent = carta.tipoEstrella;
+                        const cartaErrante = document.createElement("img");
+                        cartaErrante.src = carta.imagen;
+                        cartaErrante.id = "cartaAdversario";
 
                         carta.elementoHTML = cartaErrante; //Para guardar el párrafo de la carta
 
@@ -224,11 +226,75 @@ function abrirMenuCombate(jugadorSiguiente,cartaCentral){
 
     //Abrir el mazo al pulsar el boton 
     botonCombate.addEventListener("click", () => {
-        //abrirMazo(); DESARROLLAR FUNCIÓN
+        abrirMazo(jugadorSiguiente,cartaCentral); //DESARROLLAR FUNCIÓN
         console.log("Botón de combate pulsado");
     });
 
-    //CREAR UN BOTÓN PARA CERRAR EL MENÚ!!
+    //BOTÓN PARA CERRAR EL MENÚ!!
+    const boton = document.createElement("button");
+    boton.innerHTML = "Cerrar";
+    boton.className = "botonCerrar";
+    panelCombate.appendChild(boton); 
+
+    boton.addEventListener("click",()=>{
+        panelCombate.classList.toggle("oculto");
+    });
+}
+
+function abrirMazo(jugadorSiguiente,cartaCentral){
+    const panelCartas = document.getElementById("panelCartas");
+    panelCartas.classList.toggle("oculto");
+
+    //Para limpiarlo de los elementos que había antes
+    panelCartas.innerHTML = "";
+
+    const info = document.createElement("h2");
+    info.innerHTML = "Selecciona una carta menor para entregar:";
+    panelCartas.appendChild(info);
+
+    jugadores.find(jugador => !jugador.turno).cartas.forEach(carta => {
+            const cartaElemento = document.createElement("img");
+            cartaElemento.src = carta.imagen;
+            cartaElemento.id = "cartaAdversario";
+
+            carta.elementoHTML = cartaElemento;
+
+            panelCartas.appendChild(cartaElemento);
+
+            //Comprobar que la carta realmente es menor a la otra y despues destruirla 
+            //y transferirla al mazo del otro jugador
+            cartaElemento.addEventListener("click", () => {
+                cartaSeleccionada= carta; // Almacena la carta seleccionada
+                console.log("Carta seleccionada para entregar: " + cartaSeleccionada.tipoEstrella); 
+
+                //Comprobar si la carta errante seleccionada puede derrotar a la carta del sistema solar
+                if (cartaSeleccionada.ordenFuerza > cartaCentral.ordenFuerza) {
+                    alert("¡Has entregado esta carta!");
+                    let tipoCarta = cartaSeleccionada.tipoEstrella; 
+                    let posCarta = jugadorSiguiente.cartas.indexOf(tipoCarta);
+
+                    //Para que desaparezca de la lista del otro jugador y de su interfaz 
+                    entregarCarta(jugadorSiguiente,posCarta);
+
+                    //Para que desaparezca también de la interfaz
+                    cartaSeleccionada.elementoHTML.remove();
+                        
+                    console.log("Carta entregada");
+
+                } else {
+                    alert("No puedes entregar una carta mayor a la atacante");
+                }
+            });
+    });
+
+    const boton = document.createElement("button");
+    boton.innerHTML = "Cerrar mazo";
+    boton.className = "botonCerrar";
+    panelCartas.appendChild(boton); 
+
+    boton.addEventListener("click",()=>{
+        panelCartas.classList.toggle("oculto");
+    });
 }
 
 export{abrirMenuCombate};

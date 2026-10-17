@@ -17,7 +17,7 @@ class CartaEstrellaAzul extends CartaEstrella {
     constructor(sistemaSolar, tipo, ordenFuerza, imagen, tipoEstrella, puntos,rareza,vida) {
         super(sistemaSolar, tipo,vida);
         this.ordenFuerza = 2;
-        this.imagen = null;
+        this.imagen = "../imagenes/estrellaAzul.png";
         this.tipoEstrella = "estrellaAzul";
         this.puntos = 5;
         this.rareza = "rara";
@@ -29,7 +29,7 @@ class CartaEstrellaRoja extends CartaEstrella {
     constructor(sistemaSolar, tipo, ordenFuerza, imagen, tipoEstrella, puntos,rareza,vida) {
         super(sistemaSolar, tipo,vida);
         this.ordenFuerza = 3;
-        this.imagen = null;
+        this.imagen = "../imagenes/estrellaRoja.png";
         this.tipoEstrella = "estrellaRoja";
         this.puntos = 4;
         this.rareza = "rara";
@@ -40,7 +40,7 @@ class CartaEstrellaAmarilla extends CartaEstrella {
     constructor(sistemaSolar, tipo, ordenFuerza, imagen, tipoEstrella, puntos,rareza,vida) {
         super(sistemaSolar, tipo,vida);
         this.ordenFuerza = 4;
-        this.imagen = null;
+        this.imagen = "../imagenes/estrellaAmarilla.png";
         this.tipoEstrella = "estrellaAmarilla";
         this.puntos = 3;
         this.rareza = "escasa";
