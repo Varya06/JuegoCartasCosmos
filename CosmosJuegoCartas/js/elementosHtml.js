@@ -1,6 +1,7 @@
 //CERRAR LA FILA DE CARTAS AL PULSAR EL BOTÓN CON LA FLECHA 
 //O VOLVER A ABRIRLA
-import { jugadores, destruirCartaSistema, destruirCartaErrante, entregarCarta } from "./accionesJugador.js";
+import { jugadores, destruirCartaSistema, destruirCartaErrante, entregarCarta, 
+    obtenerCarta} from "./accionesJugador.js";
 import { interfazCartas } from "./interfazCartas.js";
 
 const boton = document.getElementById("botonCartas");
@@ -278,6 +279,16 @@ function abrirMazo(jugadorSiguiente,cartaCentral){
 
                     //Para que desaparezca también de la interfaz
                     cartaSeleccionada.elementoHTML.remove();
+
+                    //Para que aparezca en el mazo del jugador que ha ganado la batalla
+                    const jugadorActual = jugadores.find(jugador => jugador.turno);
+                    obtenerCarta(jugadorActual,cartaSeleccionada);
+
+                    //Hacer que la carta central de batalla sea devuelta al mazo del jugador
+                    const cartaCombate = document.getElementById("cartaCombate");
+                    cartaCombate.innerHTML = null;
+                    jugadorActual.cartaCentral = null; //para que deje de tener la referencia
+                    obtenerCarta(jugadorActual,cartaCentral);
                         
                     console.log("Carta entregada");
 

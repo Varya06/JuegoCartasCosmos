@@ -183,6 +183,12 @@ function entregarCarta(jugador,posicion){
 
 }
 
+//Funcion para recibir una carta nueva en tu mazo despues de ganar una batalla
+function obtenerCarta(jugador,carta){
+    jugador.cartas.push(carta);
+    interfazCartas(jugador,0);
+}
+
 
 function siguienteTurno(){
     //pasar al turno del siguiente jugador
@@ -257,7 +263,7 @@ function siguienteTurno(){
 //EXPORTAR LA FUNCION DE PASAR TURNO PARA INCLUIRLO EN ELEMENTOSHTML.JS
 export {mazoInicialEstrellas, siguienteTurno, designarErrante, 
     cogerCarta,colocarSistemaSolar, colocarCartaCentral, destruirCartaSistema,
-    destruirCartaErrante, entregarCarta, jugadores};
+    destruirCartaErrante, entregarCarta, obtenerCarta, jugadores};
 
 
 
