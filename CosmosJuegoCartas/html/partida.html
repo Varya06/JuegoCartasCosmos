@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Honk:MORF@15&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/estilosPartida.css">
+    <link rel="stylesheet" href="../css/estilosSistemaSolar.css">
 </head>
 
 <body>
@@ -42,26 +43,86 @@
     </div>
 
     <div id="superior">
-        <div id="sistema-solar">
-            <div id="imagen-sistemas">
-                <p>SISTEMA SOLAR</p>
+        <div id="sistema-solar" img="../imagenes/estrellaAmarilla.png">
+                <!-- Órbita 0: Sol -->
+            <div class="cuerpo-celeste sol" data-orbita="0">
+                <div class="hueco-carta-sistema" id="hueco-sol"></div>
+                <span class="nombre">Sol</span>
+                <span class="numero-orbita">Órbita 0</span>
             </div>
-        </div>
 
-        <div id="errantes">
-            <div id="imagen-errantes">
-                <p id="tituloErrantes">ERRANTES</p>
-                <div class="fila-errantes" id="fila-errantes-1">
-                    <div class="errante" id="errante1"></div>
-                    <div class="errante" id="errante2"></div>
-                </div>
-                
-                <div class="fila-errantes" id="fila-errantes-2">
-                    <div class="errante" id="errante3"></div>
-                    <div class="errante" id="errante4"></div>
-                </div>
-                
+            <!-- Órbita 1: Mercurio -->
+            <div class="cuerpo-celeste planeta1" data-orbita="1">
+                <div class="hueco-carta-sistema" id="hueco-planeta1"></div>
+                <span class="nombre">Mercurio</span>
+                <span class="numero-orbita">Órbita 1</span>
             </div>
+
+            <!-- Órbita 2: Venus -->
+            <div class="cuerpo-celeste planeta2" data-orbita="2">
+                <div class="hueco-carta-sistema" id="hueco-planeta2"></div>
+                <span class="nombre">Venus</span>
+                <span class="numero-orbita">Órbita 2</span>
+            </div>
+
+            <!-- Órbita 3: Tierra -->
+            <div class="cuerpo-celeste planeta3" data-orbita="3">
+                <div class="hueco-carta-sistema" id="hueco-planeta3"></div>
+                <span class="nombre">Tierra</span>
+                <span class="numero-orbita">Órbita 3</span>
+            </div>
+
+            <!-- Órbita 4: Marte -->
+            <div class="cuerpo-celeste planeta4" data-orbita="4">
+                <div class="hueco-carta-sistema" id="hueco-planeta4"></div>
+                <span class="nombre">Marte</span>
+                <span class="numero-orbita">Órbita 4</span>
+            </div>
+
+            <!-- Órbita 5: Júpiter -->
+            <div class="cuerpo-celeste planeta5" data-orbita="5">
+                <div class="hueco-carta-sistema" id="hueco-planeta5"></div>
+                <span class="nombre">Júpiter</span>
+                <span class="numero-orbita">Órbita 5</span>
+            </div>
+
+            <!-- Órbita 6: Saturno -->
+            <div class="cuerpo-celeste planeta6" data-orbita="6">
+                <div class="hueco-carta-sistema" id="hueco-planeta6"></div>
+                <span class="nombre">Saturno</span>
+                <span class="numero-orbita">Órbita 6</span>
+            </div>
+
+            <!-- Órbita 7: Urano -->
+            <div class="cuerpo-celeste planeta7" data-orbita="7">
+                <div class="hueco-carta-sistema" id="hueco-planeta7"></div>
+                <span class="nombre">Urano</span>
+                <span class="numero-orbita">Órbita 7</span>
+            </div>
+
+            <!-- Órbita 8: Neptuno -->
+            <div class="cuerpo-celeste planeta8" data-orbita="8">
+                <div class="hueco-carta-sistema" id="hueco-planeta8"></div>
+                <span class="nombre">Neptuno</span>
+                <span class="numero-orbita">Órbita 8</span>
+            </div>
+            </div>
+
+
+            <div id="errantes">
+                <div id="imagen-errantes">
+                    <p id="tituloErrantes">ERRANTES</p>
+                    <div class="fila-errantes" id="fila-errantes-1">
+                        <div class="errante" id="errante1"></div>
+                        <div class="errante" id="errante2"></div>
+                    </div>
+                    
+                    <div class="fila-errantes" id="fila-errantes-2">
+                        <div class="errante" id="errante3"></div>
+                        <div class="errante" id="errante4"></div>
+                    </div>
+                    
+                </div>
         </div>
     </div>
 

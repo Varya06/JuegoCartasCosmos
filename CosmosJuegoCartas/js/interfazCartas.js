@@ -67,21 +67,38 @@ function mostrarErrantes(jugador) {
 
 function mostrarSistemaSolar(jugador) {
 
-    const contenedor = document.getElementById("imagen-sistemas");
+    // Obtener todos los huecos del sistema solar
+    const huecos = document.querySelectorAll(".hueco-carta-sistema");
 
-    // Limpiar 
-    contenedor.innerHTML = "<p>SISTEMA SOLAR</p>";
+    // Limpiar los huecos antes de volver a mostrar las cartas
+    huecos.forEach(hueco => {
+        hueco.innerHTML = "";
+    });
 
-    // Crear las cartas del sistema solar
+    // Recorrer las cartas del sistema solar
     for (let i = 0; i < jugador.sistemaSolar.length; i++) {
 
-        const carta = document.createElement("img");
+        // Obtener la carta y su número de órbita
+        const [carta, numeroOrbita] = jugador.sistemaSolar[i];
 
-        carta.classList.add("cartaSistemaSolar");
+        let hueco;
 
-        carta.src = "../imagenes/" + jugador.sistemaSolar[i].tipoEstrella + ".png";
+        // Buscar el hueco correspondiente a esa órbita
+        if (numeroOrbita > 0){   
+            hueco = document.getElementById("hueco-planeta" + numeroOrbita);
+        } else {
+            hueco = document.getElementById("hueco-sol");
+        }
+        
+        // Crear la imagen de la carta
+        const imagen = document.createElement("img");
 
-        contenedor.appendChild(carta);
+        imagen.classList.add("cartaSistemaSolar");
+
+        imagen.src = "../imagenes/" + carta.tipoEstrella + ".png";
+
+        // Introducir la imagen en el hueco correspondiente
+        hueco.appendChild(imagen);
     }
 }
 

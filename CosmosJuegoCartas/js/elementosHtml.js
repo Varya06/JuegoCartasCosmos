@@ -34,7 +34,7 @@ let cartaSeleccionadaErrante = null;
 function abrirSistemaSolar() {
     const panelSistemaSolar = document.getElementById("panelSistemaSolar");
     panelSistemaSolar.classList.toggle("oculto");
-    
+
 
     if (panelSistemaSolar.classList.contains("oculto")) {
         botonSistemaSolar.textContent = "Sistemas solares";
@@ -43,12 +43,21 @@ function abrirSistemaSolar() {
         panelSistemaSolar.innerHTML = `<h2>SISTEMAS SOLARES</h2>
         <h3>Cartas del sistema solar del otro jugador:</h3>`;
 
-        jugadores.find(jugador => !jugador.turno).sistemaSolar.forEach(carta => {
+        jugadores.find(jugador => !jugador.turno).sistemaSolar.forEach(elemento => {
+
+            // Obtener la carta y su número de órbita
+            const carta = elemento[0];
+            const numeroOrbita = elemento[1];
+
             const cartaElemento = document.createElement("img");
             cartaElemento.src = carta.imagen;
             cartaElemento.id = "cartaAdversario";
 
+            // Guardar el elemento HTML de la carta
             carta.elementoHTML = cartaElemento;
+
+            // Guardar el número de órbita en la imagen
+            cartaElemento.dataset.orbita = numeroOrbita;
 
             panelSistemaSolar.appendChild(cartaElemento);
 
@@ -68,7 +77,7 @@ function abrirSistemaSolar() {
                 cartaElemento.style.backgroundColor = "green";
                 cartaElemento.style.color = "white";
                 cartaSeleccionada = carta; // Almacena la carta seleccionada
-                console.log("Carta seleccionada: " + cartaSeleccionada); // Muestra la carta seleccionada en la consola
+                console.log("Carta seleccionada: ", cartaSeleccionada); // Muestra la carta seleccionada en la consola
                 console.log("Carta seleccionada: " + cartaSeleccionada.tipoEstrella); // Muestra la carta seleccionada en la consola
             });
             //panelSistemaSolar.innerHTML += "<p>" + carta.tipoEstrella + "</p>";
@@ -86,7 +95,7 @@ function abrirSistemaSolar() {
 
 
         botonAtacar.addEventListener("click", () => {
-           
+
             vecesBotonAtacar += 1;
 
             // Actualiza el texto del botón según si está abierta la ventana o no
@@ -95,7 +104,7 @@ function abrirSistemaSolar() {
             } else {
                 botonAtacar.textContent = "Cerrar errantes";
             }
-            
+
 
             const panelErrantes = document.getElementById("panelErrantes");
             panelErrantes.classList.toggle("oculto");
@@ -104,7 +113,7 @@ function abrirSistemaSolar() {
             if (cartasErrantes.length === 0) {
                 alert("No tienes cartas errantes para atacar.");
             } else {
-        
+
                 if (!panelErrantes.classList.contains("oculto")) {
                     panelErrantes.innerHTML = '<h3>Cartas errantes listas para atacar:</h3>';
                     jugadores.find(jugador => jugador.turno).errantes.forEach(carta => {
@@ -132,37 +141,64 @@ function abrirSistemaSolar() {
                             cartaErrante.style.backgroundColor = "green";
                             cartaErrante.style.color = "white";
                             cartaSeleccionadaErrante = carta; // Almacena la carta seleccionada
-                            console.log("Carta errante seleccionada: " + cartaSeleccionadaErrante.tipoEstrella); 
+                            console.log("Carta errante seleccionada: " + cartaSeleccionadaErrante.tipoEstrella);
 
                             //Comprobar si la carta errante seleccionada puede derrotar a la carta del sistema solar
                             if (cartaSeleccionadaErrante.ordenFuerza < cartaSeleccionada.ordenFuerza
                                 && !jugador.erranteDestruida) {
+
                                 alert("¡Has destruido la carta del sistema solar!");
-                                let tipoCarta = cartaSeleccionada.tipoEstrella; 
-                                let posCartaSistema = jugador2.sistemaSolar.indexOf(tipoCarta);
 
-                                //Para que desaparezca de la lista del otro jugador y de su interfaz 
-                                destruirCartaSistema(jugador2,posCartaSistema);
+                                // Buscar la posición de la carta dentro del array del sistema solar
+                                let posCartaSistema = jugador2.sistemaSolar.findIndex(
+                                    elemento => elemento[0] === cartaSeleccionada
+                                );
 
-                                //Para que desaparezca también de la interfaz
-                                cartaSeleccionada.elementoHTML.remove();
-                                    
-                                console.log("Carta del sistema solar destruida");
+                                if (posCartaSistema !== -1) {
 
-                                //Para que desaparezca también la carta errante, que es de un solo uso
-                                let posCartaErrante = jugador.errantes.indexOf(cartaSeleccionadaErrante);
-                                destruirCartaErrante(jugador,posCartaErrante);
+                                    // Obtener el número de órbita antes de eliminarla
+                                    let numeroOrbita = jugador2.sistemaSolar[posCartaSistema][1];
 
-                                //Para que desaparezca también de la interfaz
-                                cartaSeleccionadaErrante.elementoHTML.remove();
-                                
-                                //Para que solo se pueda atacar con una errante una vez por turno
-                                jugador.erranteDestruida = true; 
-                                console.log("Carta errante destruida");
+                                    //Para que desaparezca de la lista del otro jugador y de su interfaz
+                                    destruirCartaSistema(jugador2, posCartaSistema);
 
-                            } else if(cartaSeleccionadaErrante.ordenFuerza >= cartaSeleccionada.ordenFuerza){
+                                    //Para que desaparezca también de la interfaz
+                                    cartaSeleccionada.elementoHTML.remove();
+
+                                    // Buscar el hueco correspondiente a la órbita
+                                    let hueco;
+
+                                    if (numeroOrbita > 0) {
+                                        hueco = document.getElementById("hueco-planeta" + numeroOrbita);
+                                    } else {
+                                        hueco = document.getElementById("hueco-sol");
+                                    }
+
+                                    // Eliminar la imagen del hueco del sistema solar
+                                    if (hueco) {
+                                        hueco.innerHTML = "";
+                                    }
+
+                                    console.log("Carta del sistema solar destruida");
+
+                                    //Para que desaparezca también la carta errante, que es de un solo uso
+                                    let posCartaErrante = jugador.errantes.indexOf(cartaSeleccionadaErrante);
+                                    destruirCartaErrante(jugador, posCartaErrante);
+
+                                    //Para que desaparezca también de la interfaz
+                                    cartaSeleccionadaErrante.elementoHTML.remove();
+
+                                    //Para que solo se pueda atacar con una errante una vez por turno
+                                    jugador.erranteDestruida = true;
+                                    console.log("Carta errante destruida");
+
+                                } else {
+                                    console.log("No se ha encontrado la carta en el sistema solar del adversario");
+                                }
+
+                            } else if (cartaSeleccionadaErrante.ordenFuerza >= cartaSeleccionada.ordenFuerza) {
                                 alert("Tú carta no es lo bastante fuerte para destruirla :(");
-                            } else if(jugador.erranteDestruida){
+                            } else if (jugador.erranteDestruida) {
                                 alert("Solo puedes atacar con una errante durante tu turno");
                             }
 
@@ -170,12 +206,12 @@ function abrirSistemaSolar() {
                     });
                 };
             };
-                
+
         });
 
         panelSistemaSolar.appendChild(botonAtacar);
     }
-}; 
+};
 
 //BOTÓN PARA MOSTRAR LAS SIGUIENTES CARTAS DEL MAZO 
 //BOTÓN PARA MOSTRAR LAS CARTAS SIGUIENTES DEL JUGADOR 

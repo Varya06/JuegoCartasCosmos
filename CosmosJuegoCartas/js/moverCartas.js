@@ -19,7 +19,7 @@ cartasBaraja.forEach(carta => {
     carta.setAttribute("draggable", "true");
 });
 
-//Para que se puedan soltar las cartas en los rectángulos de los errantes y del sistema solar
+//Para que se puedan soltar las cartas en los rectángulos de los errantes
 const errantes = document.querySelectorAll(".errante");
 
 errantes.forEach(errante => {
@@ -28,10 +28,14 @@ errantes.forEach(errante => {
 });
 
 
-const sistemaSolar = document.getElementById("imagen-sistemas");
+//Para que se puedan soltar las cartas en cada espacio del sistema solar
+const huecosSistema = document.querySelectorAll(".hueco-carta-sistema");
 
-sistemaSolar.addEventListener("dragover", permitirSoltar);
-sistemaSolar.addEventListener("drop", soltar);
+huecosSistema.forEach(hueco => {
+    hueco.addEventListener("dragover", permitirSoltar);
+    hueco.addEventListener("drop", soltar);
+});
+
 
 const cartaCentral = document.getElementById("cartaCombate");
 
@@ -58,7 +62,7 @@ function soltar(e) {
 
     e.preventDefault();
     //Comprobar en la consola
-    console.log("Soltando en:", e.currentTarget.id); // Verifica dónde se suelta
+    console.log("Soltando en:", e.currentTarget.id);
     console.log("Datos transferidos:", e.dataTransfer.getData("posicion"));
 
 
@@ -68,50 +72,70 @@ function soltar(e) {
 
     const jugadorSiguiente = jugadores.find(
         jugador => !jugador.turno
-    )
-        
+    );
+
 
     if (e.currentTarget.classList.contains("errante")) {
         const posicion = parseInt(
-        e.dataTransfer.getData("posicion")
+            e.dataTransfer.getData("posicion")
         );
 
-         if (!jugadorActual.erranteColocada){
+        if (!jugadorActual.erranteColocada){
             designarErrante(jugadorActual, posicion);
             jugadorActual.erranteColocada = true;
         } else {
             alert("Solo puedes designar una errante en tu turno");
         }
 
-       
-    } else if (e.currentTarget.id === "imagen-sistemas") {
+    } else if (e.currentTarget.classList.contains("hueco-carta-sistema")) {
+
         const posicion = parseInt(
-        e.dataTransfer.getData("posicion")
+            e.dataTransfer.getData("posicion")
         );
+
+        // Obtener el número de órbita del espacio seleccionado
+        const orbita = parseInt(
+            e.currentTarget.parentElement.dataset.orbita
+        );
+
+        console.log("Órbita seleccionada:", orbita);
+
         if (!jugadorActual.cartaSistemaColocada){
-            colocarSistemaSolar(jugadorActual, posicion);
-            jugadorActual.cartaSistemaColocada = true;
+
+            // Comprobar que el espacio está vacío
+            if (e.currentTarget.children.length === 0) {
+
+                colocarSistemaSolar(jugadorActual, posicion, orbita);
+                jugadorActual.cartaSistemaColocada = true;
+
+            } else {
+                alert("Esta órbita ya está ocupada");
+            }
+
         } else {
             alert("Solo puedes colocar una carta en tu sistema solar durante tu turno");
         }
-        
+
     } else if (e.currentTarget.id === "cartaCombate") {
         const posicion = parseInt(
-        e.dataTransfer.getData("posicion")
+            e.dataTransfer.getData("posicion")
         );
 
         if(!jugadorActual.cartaCentralColocada){
             const cartaCentral = colocarCartaCentral(jugadorActual,posicion);
             jugadorActual.cartaCentralColocada = true;
             console.log("La carta central es:",cartaCentral);
+
             //Se abre un menú para que el otro jugador elija una carta de su mazo 
             //para entregarla 
             abrirMenuCombate(jugadorSiguiente,cartaCentral);
+
         } else {
             alert("Solo puedes colocar una carta de combate en tu turno");
         }
-        
+
     } else if (e.currentTarget.id === "filaCartas") {
+
         //Para que solo puedas coger una carta durante tu turno
         if (!jugadorActual.cartaNueva && jugadorActual.cartas.length < 14) {
             cogerCarta(jugadorActual);
@@ -120,7 +144,8 @@ function soltar(e) {
         } else if (jugadorActual.cartas.length >= 14) {
             alert("¡No puedes tener más de 14 cartas en tu mano!");
         }
-        jugadorActual.cartaNueva = true; // Marcar que el jugador ha cogido una carta nueva
+
+        jugadorActual.cartaNueva = true;
     }
 }
 

@@ -91,7 +91,7 @@ function intercambiarCarta(jugador, posicion){
 
 
 // Funcion que establece una carta como parte del sistema Solar
-function colocarSistemaSolar(jugador, posicion){
+function colocarSistemaSolar(jugador, posicion, orbita){
     const carta = jugador.cartas[posicion];
 
     if (!carta) {
@@ -102,7 +102,7 @@ function colocarSistemaSolar(jugador, posicion){
     jugador.cartas.splice(posicion, 1);
 
     // Guardar el objeto carta
-    jugador.sistemaSolar.push(carta);
+    jugador.sistemaSolar.push([carta,orbita]);
 
     // Actualizar pantalla
     interfazCartas(jugador, 0);
@@ -154,7 +154,7 @@ function colocarCartaCentral(jugador, posicion){
 
 //Funcion para destruir una carta del sistema solar del otro jugador 
 function destruirCartaSistema(jugador,posicion){
-    const carta = jugador.sistemaSolar[posicion];
+    //const carta = jugador.sistemaSolar[posicion][0];
 
     //Eliminarla de la lista de cartas del sistema solar
     jugador.sistemaSolar.splice(posicion,1);
