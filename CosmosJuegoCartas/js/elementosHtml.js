@@ -3,6 +3,7 @@
 import { jugadores, destruirCartaSistema, destruirCartaErrante, entregarCarta, 
     obtenerCarta} from "./accionesJugador.js";
 import { interfazCartas } from "./interfazCartas.js";
+import { comprobarOrbita } from "./logicaCartas.js";
 
 const boton = document.getElementById("botonCartas");
 const botonSistemaSolar = document.getElementById("botonVerSistema");
@@ -27,7 +28,9 @@ botonSistemaSolar.addEventListener("click", () => {
 
 
 let cartaSeleccionada = null; // Variable para almacenar la carta seleccionada
+let orbitaCartaSeleccionada = null; // Variable para almacenar el número de órbita de la carta seleccionada
 let cartaSeleccionadaErrante = null; 
+let comprobacionOrbita = false; // Variable para almacenar el resultado de la comprobación de órbita
 
 //Para poder consultar el que cartas tiene el sistema solar del otro jugador, y poder atacar una de sus cartas
 //FALTA: QUE SE ELIMINE EL NOMBRE DE LAS CARTAS DESTRUIDAS EN EL PANEL 
@@ -76,9 +79,21 @@ function abrirSistemaSolar() {
                 //Cambia el fondo de la letra para resaltar que se va a seleccionar dicha carta
                 cartaElemento.style.backgroundColor = "green";
                 cartaElemento.style.color = "white";
-                cartaSeleccionada = carta; // Almacena la carta seleccionada
-                console.log("Carta seleccionada: ", cartaSeleccionada); // Muestra la carta seleccionada en la consola
-                console.log("Carta seleccionada: " + cartaSeleccionada.tipoEstrella); // Muestra la carta seleccionada en la consola
+
+                //Comprobar si dicha carta puede ser seleccionada, o aún no se puede destruir 
+                //porque aún quedar cartas en las órbitas exteriores a la suya 
+                if (comprobarOrbita(carta, numeroOrbita, jugadores.find(jugador => !jugador.turno))) {
+                    comprobacionOrbita = true; 
+                    cartaSeleccionada = carta; // Almacena la carta seleccionada
+                    orbitaCartaSeleccionada = numeroOrbita; // Almacena el número de órbita de la carta seleccionada
+                    alert("Puedes destruir esta carta");
+                    console.log("Carta seleccionada: " + cartaSeleccionada.tipoEstrella); // Muestra la carta seleccionada en la consola
+                } else{
+                    comprobacionOrbita = false;
+                    alert("Aún quedan cartas en órbitas exteriores a la seleccionada, no se puede destruir");
+                    console.log("Aún quedan cartas en órbitas exteriores a la seleccionada, no se puede destruir");
+                }
+               
             });
             //panelSistemaSolar.innerHTML += "<p>" + carta.tipoEstrella + "</p>";
         });
@@ -144,64 +159,54 @@ function abrirSistemaSolar() {
                             console.log("Carta errante seleccionada: " + cartaSeleccionadaErrante.tipoEstrella);
 
                             //Comprobar si la carta errante seleccionada puede derrotar a la carta del sistema solar
-                            if (cartaSeleccionadaErrante.ordenFuerza < cartaSeleccionada.ordenFuerza
-                                && !jugador.erranteDestruida) {
+                            if (comprobacionOrbita){
+                                
+                                if (cartaSeleccionadaErrante.ordenFuerza < cartaSeleccionada.ordenFuerza
+                                    && !jugador.erranteDestruida) {
 
-                                alert("¡Has destruido la carta del sistema solar!");
+                                    alert("¡Has destruido la carta del sistema solar!");
 
-                                // Buscar la posición de la carta dentro del array del sistema solar
-                                let posCartaSistema = jugador2.sistemaSolar.findIndex(
-                                    elemento => elemento[0] === cartaSeleccionada
-                                );
+                                    // Buscar la posición de la carta dentro del array del sistema solar
+                                    let posCartaSistema = jugador2.sistemaSolar.findIndex(
+                                        elemento => elemento[0] === cartaSeleccionada && elemento[1] === orbitaCartaSeleccionada
+                                    );
 
-                                if (posCartaSistema !== -1) {
+                                    if (posCartaSistema !== -1) {
 
-                                    // Obtener el número de órbita antes de eliminarla
-                                    let numeroOrbita = jugador2.sistemaSolar[posCartaSistema][1];
+                                        // Obtener el número de órbita antes de eliminarla
+                                        //let numeroOrbita = jugador2.sistemaSolar[posCartaSistema][1];
 
-                                    //Para que desaparezca de la lista del otro jugador y de su interfaz
-                                    destruirCartaSistema(jugador2, posCartaSistema);
+                                        //Para que desaparezca de la lista del otro jugador y de su interfaz
+                                        destruirCartaSistema(jugador2, posCartaSistema);
 
-                                    //Para que desaparezca también de la interfaz
-                                    cartaSeleccionada.elementoHTML.remove();
+                                        //Para que desaparezca también de la interfaz
+                                        cartaSeleccionada.elementoHTML.remove();
 
-                                    // Buscar el hueco correspondiente a la órbita
-                                    let hueco;
+                                        console.log("Carta del sistema solar destruida");
 
-                                    if (numeroOrbita > 0) {
-                                        hueco = document.getElementById("hueco-planeta" + numeroOrbita);
+                                        //Para que desaparezca también la carta errante, que es de un solo uso
+                                        let posCartaErrante = jugador.errantes.indexOf(cartaSeleccionadaErrante);
+                                        destruirCartaErrante(jugador, posCartaErrante);
+
+                                        //Para que desaparezca también de la interfaz
+                                        cartaSeleccionadaErrante.elementoHTML.remove();
+
+                                        //Para que solo se pueda atacar con una errante una vez por turno
+                                        jugador.erranteDestruida = true;
+                                        console.log("Carta errante destruida");
+
                                     } else {
-                                        hueco = document.getElementById("hueco-sol");
+                                        console.log("No se ha encontrado la carta en el sistema solar del adversario");
                                     }
 
-                                    // Eliminar la imagen del hueco del sistema solar
-                                    if (hueco) {
-                                        hueco.innerHTML = "";
-                                    }
-
-                                    console.log("Carta del sistema solar destruida");
-
-                                    //Para que desaparezca también la carta errante, que es de un solo uso
-                                    let posCartaErrante = jugador.errantes.indexOf(cartaSeleccionadaErrante);
-                                    destruirCartaErrante(jugador, posCartaErrante);
-
-                                    //Para que desaparezca también de la interfaz
-                                    cartaSeleccionadaErrante.elementoHTML.remove();
-
-                                    //Para que solo se pueda atacar con una errante una vez por turno
-                                    jugador.erranteDestruida = true;
-                                    console.log("Carta errante destruida");
-
-                                } else {
-                                    console.log("No se ha encontrado la carta en el sistema solar del adversario");
+                                } else if (cartaSeleccionadaErrante.ordenFuerza >= cartaSeleccionada.ordenFuerza) {
+                                    alert("Tú carta no es lo bastante fuerte para destruirla :(");
+                                } else if (jugador.erranteDestruida) {
+                                    alert("Solo puedes atacar con una errante durante tu turno");
                                 }
-
-                            } else if (cartaSeleccionadaErrante.ordenFuerza >= cartaSeleccionada.ordenFuerza) {
-                                alert("Tú carta no es lo bastante fuerte para destruirla :(");
-                            } else if (jugador.erranteDestruida) {
-                                alert("Solo puedes atacar con una errante durante tu turno");
+                            } else {
+                                alert("No has seleccionado ninguna carta váida para destruir.")
                             }
-
                         });
                     });
                 };
