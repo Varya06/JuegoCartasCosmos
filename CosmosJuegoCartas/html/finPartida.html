@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>COSMOS:Juego de cartas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Honk:MORF@15&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/estilosFinPartida.css">
+</head>
+
+<body>
+    <div id="titulo">
+        <h1 id="encabezado">
+            FIN DE LA PARTIDA 
+        </h1>
+    </div>
+
+    <h2 id = "ganador">GANADOR:</h2>
+    <p id="info">Número de puntos que tenía cada jugador:</p>
+
+    <div id = "jugadores">
+        <p id="jugador1">Jugador 1:</p>
+        <p id="jugador2">Jugador 2: </p>
+    </div>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const ganador = params.get("ganador");
+            const puntos1 = params.get("puntos1");
+            const puntos2 = params.get("puntos2");
+
+            document.getElementById("ganador").textContent = "GANADOR: " + ganador;
+            document.getElementById("jugador1").textContent = "Jugador 1: " + puntos1;
+            document.getElementById("jugador2").textContent = "Jugador 2: " + puntos2;
+        });
+    </script>
+</body>

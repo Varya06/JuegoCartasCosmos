@@ -10,6 +10,7 @@ class CartaEstrella {
         this.sistemaSolar = true;
         this.tipo = "estrella";
         this.vida = false;
+        this.puntos = 0;
     }
 }
 

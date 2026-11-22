@@ -1,7 +1,8 @@
 //Elementos que se irán modificando
 //Para que se puedan arrastrar todas las cartas
-import { jugadores, colocarSistemaSolar, cogerCarta, designarErrante, colocarCartaCentral } from "./accionesJugador.js";
+import {colocarSistemaSolar, cogerCarta, designarErrante, colocarCartaCentral } from "./accionesJugador.js";
 import { abrirMenuCombate} from "./elementosHtml.js";
+import {jugadores} from "./logicaPartida.js"
 
 
 const filaCartas = document.getElementById("filaCartas");

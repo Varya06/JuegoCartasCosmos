@@ -1,0 +1,63 @@
+body {
+    background-color: rgb(26, 33, 106);
+    min-height: 100vh;
+    margin: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#titulo{
+    display:flex; 
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+    margin: 0 auto; 
+    height: 200px;
+    width: 700px; 
+}
+
+
+#encabezado{
+    font-family: 'Tangerine', cursive;
+    color: white;
+    text-align: center;
+    font-size: 80px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#ganador{
+    font-family: 'Arial', cursive;
+    color: white;
+    text-align: center;
+    font-size: 80px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#info{
+    font-family: 'Arial', cursive;
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#jugadores{
+    display:flex; 
+    justify-content: center;
+    flex-direction: column; 
+    align-items: center;
+    background-color: rgb(124, 119, 255);
+    margin: 0 auto; 
+    height: 200px;
+    width: 700px; 
+}
+
+#jugadores p {
+    font-family: 'Arial', cursive;
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+

@@ -1,7 +1,8 @@
 //CERRAR LA FILA DE CARTAS AL PULSAR EL BOTÓN CON LA FLECHA 
 //O VOLVER A ABRIRLA
-import { jugadores, destruirCartaSistema, destruirCartaErrante, entregarCarta, 
+import {destruirCartaSistema, destruirCartaErrante, entregarCarta, 
     obtenerCarta} from "./accionesJugador.js";
+import {jugadores} from "./logicaPartida.js";
 import { interfazCartas } from "./interfazCartas.js";
 import { comprobarOrbita } from "./logicaCartas.js";
 

@@ -14,34 +14,7 @@ var primeraVezJugador1 = true; //variable que indica si es la primera vez que el
 var primeraVezJugador2 = true; //variable que indica si es la primera vez que el jugador 2 juega
 
 //EN VEZ DE VARIABLES SUELTAS, CREAR ARRAYS PARA CADA JUGADOR CON SUS PROPIAS CARTAS, SISTEMA SOLAR Y ERRANTES
-const jugadores = [
-    {
-        cartas: [],
-        sistemaSolar: [],
-        errantes: [],
-        cartaCentral: null,
-        primeraVez: true,
-        turno: true,
-        cartaNueva: false,
-        erranteColocada: false,
-        cartaSistemaColocada: false,
-        cartaCentralColocada: false,
-        erranteDestruida: false
-    },
-    {
-        cartas: [],
-        sistemaSolar: [],
-        errantes: [],
-        primeraVez: true,
-        cartaCentral: null,
-        turno: false,
-        cartaNueva: false,
-        erranteColocada: false,
-        cartaSistemaColocada: false,
-        cartaCentralColocada: false,
-        erranteDestruida: false
-    }
-];
+import {jugadores, siguienteTurno } from "./logicaPartida.js";
 
 //Lo que se muestra al inicio de la partida
 mazoInicialEstrellas(jugadores[0]);
@@ -190,80 +163,10 @@ function obtenerCarta(jugador,carta){
 }
 
 
-function siguienteTurno(){
-    //pasar al turno del siguiente jugador
-    //mostrar las cartas del jugador en sus lugares correspondientes
-    //reiniciar los booleanos para que pueda volver a realizar acciones 
-    jugadores[0].turno = !jugadores[0].turno;
-    jugadores[1].turno = !jugadores[1].turno;
-    if (jugadores[0].turno){
-        console.log("Turno del jugador 1");
-        if (jugadores[0].primeraVez){
-            mazoInicialEstrellas(jugadores[0]);
-            jugadores[0].primeraVez = false;
-        }
-        interfazCartas(jugadores[0], 0);
-        mostrarErrantes(jugadores[0]);
-        mostrarSistemaSolar(jugadores[0]);
-        mostrarCartaCentral(jugadores[0]);
-
-        if (jugadores[0].cartaNueva) {
-            jugadores[0].cartaNueva = false; // Resetearlo para que pueda volver a coger una carta
-        }
-
-        if(jugadores[0].erranteColocada){
-            jugadores[0].erranteColocada = false;
-        }
-
-        if(jugadores[0].cartaSistemaColocada){
-            jugadores[0].cartaSistemaColocada = false;
-        }
-
-        if(jugadores[0].cartaCentralColocada){
-            jugadores[0].cartaCentralColocada = false;
-        }
-
-        if(jugadores[0].erranteDestruida){
-            jugadores[0].erranteDestruida = false;
-        }
-
-    } else {
-        console.log("Turno del jugador 2");
-        if (jugadores[1].primeraVez){
-            mazoInicialEstrellas(jugadores[1]);
-            jugadores[1].primeraVez = false;
-        }
-        interfazCartas(jugadores[1], 0);
-        mostrarErrantes(jugadores[1]);
-        mostrarSistemaSolar(jugadores[1]);
-        mostrarCartaCentral(jugadores[1]);
-
-        if (jugadores[1].cartaNueva) {
-            jugadores[1].cartaNueva = false; 
-        }
-
-        if (jugadores[1].erranteColocada) {
-            jugadores[1].erranteColocada = false; 
-        }
-
-        if (jugadores[1].cartaSistemaColocada) {
-            jugadores[1].cartaSistemaColocada = false; 
-        }
-
-        if (jugadores[1].cartaCentralColocada) {
-            jugadores[1].cartaCentralColocada = false; 
-        }
-
-        if (jugadores[1].erranteDestruida) {
-            jugadores[1].erranteDestruida = false; 
-        }
-    }
-}
-
 //EXPORTAR LA FUNCION DE PASAR TURNO PARA INCLUIRLO EN ELEMENTOSHTML.JS
-export {mazoInicialEstrellas, siguienteTurno, designarErrante, 
+export {mazoInicialEstrellas, designarErrante, 
     cogerCarta,colocarSistemaSolar, colocarCartaCentral, destruirCartaSistema,
-    destruirCartaErrante, entregarCarta, obtenerCarta, jugadores};
+    destruirCartaErrante, entregarCarta, obtenerCarta};
 
 
 
