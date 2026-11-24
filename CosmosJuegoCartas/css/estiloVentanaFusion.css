@@ -1,0 +1,112 @@
+
+#btnFusionar{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;    
+    background-color: blue;
+
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+
+    margin: 3px;
+    margin-top:10px;
+    margin-bottom:2px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    width:200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Tangerine', cursive;
+    font-size: 40px;
+    color:rgb(239, 202, 252);
+}
+
+#btnCancelarFusion{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;    
+    background-color: blue;
+
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+
+    margin: 3px;
+    margin-top:10px;
+    margin-bottom:2px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    width:200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Tangerine', cursive;
+    font-size: 40px;
+    color:rgb(239, 202, 252);
+}
+
+#panelFusion{
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 50%;
+    height: 60%;
+
+    background-color: rgba(79, 173, 231, 0.8);
+}
+
+.oculto{
+    display: none;
+}
+
+#cartasAFusionar{
+    position: fixed;
+
+    bottom: 70px;
+    left: 15px;
+    right: 15px;
+
+    background-color:rgba(99, 23, 214, 0.527);
+    width:580px;
+    height: 230px;
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto;
+
+    transition: transform 0.3s ease;
+}
+
+.fusion{
+    background-color:rgb(66, 227, 255);
+    height:180px;
+    width:120px; 
+    margin:50px;
+}
+
+/* Carta seleccionada para fusionar */
+.carta.seleccionadaFusion {
+    transform: translateY(-20px);
+    outline: 4px solid gold;
+    box-shadow: 0 0 20px gold;
+    z-index: 10;
+}
+
+/* Imágenes de las cartas dentro del panel */
+.fusion img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}

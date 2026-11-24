@@ -31,6 +31,7 @@ function interfazCartas(jugador, inicio = 0){
         carta.classList.add("imgCarta");
         carta.draggable = true;
         carta.dataset.posicion = i;
+        carta.cartaDatos = jugador.cartas[i]; //para que se sepa a qué carta pertenece la imagen
         carta.src = "../imagenes/" + jugador.cartas[i].tipoEstrella + ".png";
 
         contenedores[indiceContenedor].appendChild(carta);

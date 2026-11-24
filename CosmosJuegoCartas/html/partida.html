@@ -14,6 +14,7 @@
 
     <link rel="stylesheet" href="../css/estilosPartida.css">
     <link rel="stylesheet" href="../css/estilosSistemaSolar.css">
+    <link rel="stylesheet" href="../css/estiloVentanaFusion.css">
 </head>
 
 <body>
@@ -28,6 +29,10 @@
 
         <a>
             <button id="botonBatallaEstrellas">Batalla de estrellas</button>
+        </a>
+
+         <a>
+            <button id="botonFusionarEstrellas">Fusionar estrellas</button>
         </a>
     </div>
 
@@ -186,6 +191,18 @@
     </div>
 
     <div id="panelCartas" class="oculto">
+    </div>
+
+    <div id="panelFusion" class="oculto">
+        <h1>Selecciona las estrellas que quieres fusionar:</h1>
+        <button id="btnCancelarFusion">Cancelar</button>
+        <button id="btnFusionar">Fusionar</button> 
+
+        <div id="cartasAFusionar">
+            <div class="fusion" id="fusion1"></div>
+            <div class="fusion" id="fusion2"></div>
+         </div>
+                 
     </div>
 
 

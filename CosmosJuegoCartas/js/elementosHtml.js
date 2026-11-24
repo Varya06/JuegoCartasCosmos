@@ -34,7 +34,6 @@ let cartaSeleccionadaErrante = null;
 let comprobacionOrbita = false; // Variable para almacenar el resultado de la comprobación de órbita
 
 //Para poder consultar el que cartas tiene el sistema solar del otro jugador, y poder atacar una de sus cartas
-//FALTA: QUE SE ELIMINE EL NOMBRE DE LAS CARTAS DESTRUIDAS EN EL PANEL 
 function abrirSistemaSolar() {
     const panelSistemaSolar = document.getElementById("panelSistemaSolar");
     panelSistemaSolar.classList.toggle("oculto");
@@ -220,7 +219,6 @@ function abrirSistemaSolar() {
 };
 
 //BOTÓN PARA MOSTRAR LAS SIGUIENTES CARTAS DEL MAZO 
-//BOTÓN PARA MOSTRAR LAS CARTAS SIGUIENTES DEL JUGADOR 
 const botonSiguientesCartas = document.getElementById("botonSiguientesCartas");
 const cartas = document.querySelectorAll("#filaCartas .carta");
 const totalCartas = cartas.length;
@@ -349,6 +347,136 @@ function abrirMazo(jugadorSiguiente,cartaCentral){
         panelCartas.classList.toggle("oculto");
     });
 }
+
+//ABRIR EL MENÚ DE FUSIÓN DE ESTRELLAS Y SELECCIONAR LAS CARTAS A FUSIONAR
+
+let cartasSeleccionadasFusion = [];
+
+const panelFusion = document.getElementById("panelFusion");
+const fusion1 = document.getElementById("fusion1");
+const fusion2 = document.getElementById("fusion2");
+
+const btnFusionar = document.getElementById("btnFusionar");
+const filaCartas = document.getElementById("filaCartas");
+const botonFusion = document.getElementById("botonFusionarEstrellas");
+const btnCancelarFusion = document.getElementById("btnCancelarFusion");
+
+
+function abrirFusionEstrellas() {
+    const panelFusion = document.getElementById("panelFusion");
+    panelFusion.classList.toggle("oculto");
+
+    //reiniciar todo 
+    cartasSeleccionadasFusion = [];
+    fusion1.innerHTML = "";
+    fusion2.innerHTML = "";
+}
+
+botonFusion.addEventListener("click", ()=>{
+    abrirFusionEstrellas();
+});
+
+btnCancelarFusion.addEventListener("click", ()=>{
+    panelFusion.classList.toggle("oculto");
+
+    //reiniciar para que los cambios no se guarden para la próxima vez
+    cartasSeleccionadasFusion = [];
+
+    fusion1.innerHTML = "";
+    fusion2.innerHTML = "";
+
+    // Quitar el resaltado de todas las cartas
+    document.querySelectorAll(".carta")
+        .forEach(carta => carta.classList.remove("seleccionadaFusion"));
+});
+
+//Este botón llamará a la función de fusionar estrellas
+btnFusionar.addEventListener("click",()=>{
+    panelFusion.classList.toggle("oculto");
+    //fusionarEstrellas(carta1,carta2);
+});
+
+// SELECCIONAR CARTAS PARA LA FUSIÓN
+filaCartas.addEventListener("click", (event) => {
+
+    // Obtener la imagen pulsada
+    const imagenHTML = event.target.closest(".imgCarta");
+
+    if (!imagenHTML) return;
+
+    // Comprobar que el panel está abierto
+    if (panelFusion.classList.contains("oculto")) return;
+
+    // Obtener el contenedor de la carta
+    const cartaHTML = imagenHTML.closest(".carta");
+
+    // Obtener el objeto original
+    const carta = imagenHTML.cartaDatos;
+
+    if (!carta) return;
+
+    // Obtener la posición de la carta en la mano
+    const posicion = imagenHTML.dataset.posicion;
+
+    // Comprobar si ESA MISMA POSICIÓN ya estaba seleccionada
+    const indiceSeleccionada = cartasSeleccionadasFusion.findIndex(
+        seleccion => seleccion.posicion === posicion
+    );
+
+    if (indiceSeleccionada !== -1) {
+
+        // Si ya estaba seleccionada, deseleccionarla
+        cartasSeleccionadasFusion.splice(indiceSeleccionada, 1);
+
+        cartaHTML.classList.remove("seleccionadaFusion");
+
+    } else {
+
+        // No permitir seleccionar más de dos cartas
+        if (cartasSeleccionadasFusion.length >= 2) return;
+
+        // Guardar el objeto y su posición
+        cartasSeleccionadasFusion.push({
+            carta: carta,
+            posicion: posicion
+        });
+
+        cartaHTML.classList.add("seleccionadaFusion");
+    }
+
+    // Actualizar los huecos del panel
+    actualizarCartasFusion();
+
+});
+
+// MOSTRAR LAS CARTAS SELECCIONADAS EN EL PANEL DE FUSIÓN
+function actualizarCartasFusion() {
+
+    fusion1.innerHTML = "";
+    fusion2.innerHTML = "";
+
+    const huecos = [fusion1, fusion2];
+
+    cartasSeleccionadasFusion.forEach((seleccion, index) => {
+
+        // Buscar la imagen original por su posición
+        const imagenOriginal = Array.from(
+            document.querySelectorAll(".imgCarta")
+        ).find(imagen => imagen.dataset.posicion === seleccion.posicion);
+
+        if (!imagenOriginal) return;
+
+        // Copiar la imagen
+        const imagen = imagenOriginal.cloneNode(true);
+
+        imagen.draggable = false;
+
+        // Colocar en el hueco correspondiente
+        huecos[index].appendChild(imagen);
+
+    });
+}
+
 
 export{abrirMenuCombate};
 

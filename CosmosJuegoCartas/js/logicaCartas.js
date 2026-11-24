@@ -15,4 +15,9 @@ function comprobarOrbita(carta, numeroOrbita,jugador) {
     return true; // No hay cartas en órbitas exteriores
 }
 
+//Función para fusionar dos estrellas en una, al darle al botón de fusionar
+function fusionarEstrellas(carta1,carta2){
+
+}
+
 export { comprobarOrbita };
